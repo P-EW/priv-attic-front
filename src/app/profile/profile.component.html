@@ -1,0 +1,26 @@
+<mat-card>
+  <div mat-card-avatar mat-card-lg-image class="header-image" [ngStyle]="{ 'background-image': 'url('+user.image+')'}" *ngIf="user?.image"></div>
+
+  <mat-card-content>
+    <mat-card-title>{{user?.firstname}} {{user?.lastname}}</mat-card-title>
+    <mat-card-subtitle>{{motto()}}</mat-card-subtitle>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <a mat-button disabled>
+      <mat-icon>favorite</mat-icon>
+      <span>321</span>
+    </a>
+    <a mat-button disabled>
+      <mat-icon>person</mat-icon>
+      <span>123</span>
+    </a>
+    <a mat-button>
+      <mat-icon>person_add_alt_1</mat-icon>
+      <span>Follow</span>
+    </a>
+  </mat-card-actions>
+  <mat-card-footer></mat-card-footer>
+</mat-card>
+
+<app-post [post]="post" *ngFor="let post of posts"></app-post>

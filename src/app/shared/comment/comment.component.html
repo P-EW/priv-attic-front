@@ -1,7 +1,7 @@
 <table>
   <tr>
     <td rowspan="2">
-      <img class="avatar" [src]="author.image" alt="Profile picture">
+      <img class="avatar" [src]="author.image" alt="Profile picture" *ngIf="author?.image">
     </td>
     <td>
       <strong>{{author.pseudo}} :</strong>

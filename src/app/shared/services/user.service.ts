@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {User} from "../types";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {Observable, map, mergeMap} from "rxjs";
+import {Observable, map} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +48,17 @@ export class UserService {
 
   fetchOne(userId: string): Observable<User> {
     return this._http.get<User>(this._backendURL.oneUserId.replace(':id', userId)).pipe(
+      map((user: User) => {
+        if(!user?.image){
+          user.image = 'https://material.angular.io/assets/img/examples/shiba2.jpg';
+        }
+        return user
+      })
+    );
+  }
+
+  fetchOneFromPseudo(pseudo: string): Observable<User> {
+    return this._http.get<User>(this._backendURL.oneFromPseudo.replace(':pseudo', pseudo)).pipe(
       map((user: User) => {
         if(!user?.image){
           user.image = 'https://material.angular.io/assets/img/examples/shiba2.jpg';

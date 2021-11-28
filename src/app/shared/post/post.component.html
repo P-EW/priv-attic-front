@@ -1,6 +1,6 @@
 <mat-card class="card">
   <mat-card-header>
-    <div mat-card-avatar class="header-image" [ngStyle]="{ 'background-image': 'url('+profilePicture()+')'}"></div>
+    <div mat-card-avatar class="header-image" [ngStyle]="{ 'background-image': 'url('+publisher.image+')'}" *ngIf="publisher?.image"></div>
     <mat-card-title>{{publisher?.firstname}} {{publisher?.lastname}}</mat-card-title>
     <small class="timestamp">{{post?.date | date:"dd/MM/yy, HH:mm"}}</small>
     <mat-card-subtitle>
@@ -11,7 +11,7 @@
   </mat-card-header>
   <mat-card-content>
     <p>{{post?.textContent}}</p>
-    <img mat-card-image [src]="post?.mediaContent" alt="Media Content" *ngIf="post?.mediaContent">
+    <img mat-card-image [src]="post.mediaContent" alt="Media Content" *ngIf="post?.mediaContent">
   </mat-card-content>
   <mat-card-actions>
     <button mat-icon-button (click)="fav()" [color]="isFav? 'primary':''">

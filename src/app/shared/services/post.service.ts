@@ -51,4 +51,12 @@ export class PostService {
         defaultIfEmpty([])
       )
   }
+
+  fetchUserPosts(user: string): Observable<Post[]> {
+    return this._http.get<Post[]>(this._backendURL.postFromPseudo.replace(':pseudo', user))
+      .pipe(
+        filter((posts:Post[]) => !!posts),
+        defaultIfEmpty([])
+      )
+  }
 }

@@ -70,8 +70,4 @@ export class PostComponent implements OnInit {
   fav(){
     this._isFav = !this._isFav;
   }
-
-  profilePicture(): string {
-    return this._publisher.image;
-  }
 }

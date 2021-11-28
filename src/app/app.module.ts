@@ -17,6 +17,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { CommentsComponent } from './comments/comments.component';
 import { CommentComponent } from './shared/comment/comment.component';
 import {MatInputModule} from "@angular/material/input";
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {MatInputModule} from "@angular/material/input";
     FeedComponent,
     PostComponent,
     CommentsComponent,
-    CommentComponent
+    CommentComponent,
+    ProfileComponent
   ],
     imports: [
         HttpClientModule,

@@ -1,0 +1,20 @@
+.header-image {
+  background-size: cover;
+  margin: auto;
+}
+
+.mat-card-content {
+  text-align: center;
+}
+
+.mat-icon {
+  margin-right: 8px;
+}
+
+.mat-card-actions {
+  display: flex;
+}
+
+.mat-card-actions > * {
+  margin: auto;
+}
