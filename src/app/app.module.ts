@@ -14,26 +14,32 @@ import { PostComponent } from './shared/post/post.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatChipsModule} from "@angular/material/chips";
 import {HttpClientModule} from "@angular/common/http";
+import { CommentsComponent } from './comments/comments.component';
+import { CommentComponent } from './shared/comment/comment.component';
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
     AppComponent,
     FeedComponent,
-    PostComponent
+    PostComponent,
+    CommentsComponent,
+    CommentComponent
   ],
-  imports: [
-    HttpClientModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatListModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatChipsModule,
-  ],
+    imports: [
+        HttpClientModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatListModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatChipsModule,
+        MatInputModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

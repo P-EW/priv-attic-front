@@ -16,9 +16,7 @@ export class FeedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._postService.fetchFeed().subscribe({ next: (posts: Post[]) => this._posts = posts});
-    //default sort
-    this._posts.sort((a:Post, b:Post) => +b.date - +a.date);
+    this._postService.fetchFeed().subscribe({ next: (posts: Post[]) => this._posts = posts.sort((a:Post, b:Post) => +b.date - +a.date)});
   }
 
   get posts(): Post[]{

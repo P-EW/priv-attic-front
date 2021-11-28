@@ -8,7 +8,8 @@ export const environment = {
       allPosts: '/posts',
       postFromPseudo: '/posts/from/:pseudo',
       onePost: '/posts/:id',
-      oneUserId: '/users/user/:id'
+      oneUserId: '/users/user/:id',
+      commentsFromPost: '/comments/from/:id',
     }
   }
 };

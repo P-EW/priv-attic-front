@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Post} from "../types";
+import {Comment} from "../types";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {defaultIfEmpty, filter, Observable} from "rxjs";
@@ -7,21 +7,19 @@ import {defaultIfEmpty, filter, Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
-
+export class CommentService {
   // private property to store all backend URLs
   private readonly _backendURL: any;
   // private property to store default post
-  private readonly _defaultPost: Post;
+  private readonly _defaultComment: Comment;
 
   constructor(private _http: HttpClient) {
-    this._defaultPost = {
+    this._defaultComment = {
       _id: "1",
-      publisherId: "1",
-      textContent: "Bonjour ! Ceci est un exemple de post !",
-      mediaContent: "https://material.angular.io/assets/img/examples/shiba2.jpg",
+      authorId: "1",
+      content: "Bonjour ! Ceci est un exemple de comment !",
       date: "1636195396259",
-      categories: ["dog", "photography"]
+      postId: "1"
     };
 
     this._backendURL = {};
@@ -40,14 +38,14 @@ export class PostService {
   /**
    * Returns private property _defaultPost
    */
-  get defaultPost(): Post {
-    return this._defaultPost;
+  get defaultComment(): Comment {
+    return this._defaultComment;
   }
 
-  fetchFeed(): Observable<Post[]> {
-    return this._http.get<Post[]>(this._backendURL.allPosts)
+  fetchFromPost(postId: string): Observable<Comment[]> {
+    return this._http.get<Comment[]>(this._backendURL.commentsFromPost.replace(':id', postId))
       .pipe(
-        filter((posts:Post[]) => !!posts),
+        filter((comments:Comment[]) => !!comments),
         defaultIfEmpty([])
       )
   }

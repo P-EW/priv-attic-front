@@ -1,0 +1,16 @@
+table td, table td * {
+  vertical-align: top;
+  margin: 0;
+  padding: 0;
+}
+
+.avatar {
+  object-fit: contain;
+  background-size: cover;
+  width: 40px;
+  height: 40px;
+}
+
+.content {
+  word-break: break-all;
+}

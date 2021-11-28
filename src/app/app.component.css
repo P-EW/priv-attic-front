@@ -32,11 +32,11 @@
 
 .wrapper {
   display: grid;
-  grid-template-columns: 1.75fr 1fr 3fr 1.75fr;
+  grid-template-columns: 1.25fr 1fr 3fr 2.25fr;
   grid-gap: 10px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1150px) {
   .wrapper {
     display: grid;
     grid-template-columns: 0fr 1fr 3fr;

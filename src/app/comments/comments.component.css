@@ -1,0 +1,9 @@
+.comment {
+  background-color: #303030;
+  padding: 5px;
+  margin-top: 2px;
+}
+
+mat-form-field {
+  width: 100%;
+}

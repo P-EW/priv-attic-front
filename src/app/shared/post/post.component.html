@@ -25,5 +25,6 @@
     </button>
   </mat-card-actions>
   <mat-card-content *ngIf="!hideComments" [@slideInOut]>
+    <app-comments [postId]="post._id"></app-comments>
   </mat-card-content>
 </mat-card>

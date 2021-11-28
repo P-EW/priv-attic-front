@@ -1,5 +1,5 @@
 export type Post = {
-  id: string;
+  _id: string;
   publisherId: string;
   textContent?: string;
   mediaContent?: string;
@@ -22,4 +22,12 @@ export type User = {
 export type Motto = {
   title: string;
   content?: string;
+};
+
+export type Comment = {
+  _id: string;
+  postId: string;
+  authorId: string;
+  content: string;
+  date: string;
 };
