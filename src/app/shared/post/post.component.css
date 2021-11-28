@@ -1,0 +1,21 @@
+.card {
+  margin: 1vh;
+}
+
+.header-image {
+  background-size: cover;
+}
+
+.mat-card-actions {
+  display: flex;
+  margin-top: -16px; /* reduce empty space */
+}
+
+.mat-card-actions > * {
+  margin: auto;
+}
+
+.timestamp {
+  margin-left: auto;
+  color: gray;
+}
