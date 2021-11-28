@@ -23,4 +23,29 @@
   <mat-card-footer></mat-card-footer>
 </mat-card>
 
-<app-post [post]="post" *ngFor="let post of posts"></app-post>
+<mat-tab-group mat-stretch-tabs>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">article</mat-icon>
+      <span>Posts</span>
+    </ng-template>
+    <app-post [post]="post" *ngFor="let post of posts"></app-post>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">favorite</mat-icon>
+      <span>Likes</span>
+    </ng-template>
+    Content 2
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">comment</mat-icon>
+      <span>Comments</span>
+    </ng-template>
+
+    Content 3
+  </mat-tab>
+</mat-tab-group>

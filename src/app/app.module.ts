@@ -18,6 +18,7 @@ import { CommentsComponent } from './comments/comments.component';
 import { CommentComponent } from './shared/comment/comment.component';
 import {MatInputModule} from "@angular/material/input";
 import { ProfileComponent } from './profile/profile.component';
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -28,20 +29,21 @@ import { ProfileComponent } from './profile/profile.component';
     CommentComponent,
     ProfileComponent
   ],
-    imports: [
-        HttpClientModule,
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatListModule,
-        MatIconModule,
-        MatToolbarModule,
-        MatCardModule,
-        MatChipsModule,
-        MatInputModule,
-    ],
+  imports: [
+    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatListModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatChipsModule,
+    MatInputModule,
+    MatTabsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
