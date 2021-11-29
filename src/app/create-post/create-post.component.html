@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-card-content>
+    <form novalidate [formGroup]="form">
+      <mat-form-field appearance="outline">
+        <mat-label>Text Content</mat-label>
+        <textarea matInput placeholder="You may or may not write a little something :)" formControlName="textContent" name="textContent" maxlength="128"></textarea>
+        <mat-error *ngIf="form.get('textContent')?.dirty && form.get('textContent')?.hasError('maxLength')">
+          Text must be under <strong>128 letters</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Categories/Tags</mat-label>
+        <mat-chip-list #chipList aria-label="Tag selection">
+          <mat-chip
+            *ngFor="let tag of tags"
+            [removable]="true"
+            (removed)="remove(tag)">
+            {{tag}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input
+            placeholder="New tag..."
+            #tagInput
+            [formControl]="tagCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <ng-container *ngFor="let tag of filteredTags | async">
+            <mat-option [value]="tag" *ngIf="!tags.includes(tag)">
+              {{tag}}
+            </mat-option>
+          </ng-container>
+        </mat-autocomplete>
+      </mat-form-field>
+      <button mat-button type="button" (click)="submit(form.value)" [disabled]="form.invalid">Post</button>
+    </form>
+  </mat-card-content>
+</mat-card>
