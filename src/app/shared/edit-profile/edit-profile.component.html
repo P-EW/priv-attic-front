@@ -1,0 +1,122 @@
+<mat-card>
+  <form novalidate [formGroup]="form">
+    <table>
+      <tr>
+        <th>
+          <mat-form-field>
+            <mat-label>First name</mat-label>
+            <input matInput formControlName="firstname" minlength="2" required name="firstname">
+            <mat-error *ngIf="form.get('firstname')?.dirty && form.get('firstname')?.hasError('required')">
+              First name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="form.get('firstname')?.dirty && form.get('firstname')?.hasError('minlength')">
+              First name is <strong>2 chars min</strong>
+            </mat-error>
+          </mat-form-field>
+        </th>
+        <th rowspan="2">
+          <div mat-card-avatar mat-card-lg-image class="header-image" [ngStyle]="{ 'background-image': 'url('+model.image+')'}" *ngIf="model?.image">
+            <div class="overlay">
+              <mat-icon class="icon">edit</mat-icon>
+            </div>
+          </div>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <mat-form-field>
+            <mat-label>Last name</mat-label>
+            <input matInput formControlName="lastname" minlength="2" required name="lastname" />
+            <mat-error *ngIf="form.get('lastname')?.dirty && form.get('lastname')?.hasError('required')">
+              Last name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="form.get('lastname')?.dirty && form.get('lastname')?.hasError('minlength')">
+              Last name is <strong>2 chars min</strong>
+            </mat-error>
+          </mat-form-field>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <mat-form-field>
+            <mat-label>Pseudo</mat-label>
+            <input matInput formControlName="pseudo" required name="pseudo" />
+            <mat-error *ngIf="form.get('pseudo')?.dirty && form.get('pseudo')?.hasError('required')">
+              Pseudo is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="form.get('pseudo')?.dirty && !form.get('pseudo')?.hasError('required') && form.get('pseudo')?.hasError('minlength')">
+              Invalid pseudo <strong>(ex: Bob)</strong>
+            </mat-error>
+          </mat-form-field>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <mat-form-field>
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone" required name="phone" />
+            <mat-error *ngIf="form.get('phone')?.dirty && form.get('phone')?.hasError('required')">
+              Phone is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="form.get('phone')?.dirty && !form.get('phone')?.hasError('required') && form.get('phone')?.hasError('pattern')">
+              Invalid phone <strong>(ex: 06xxxxxxxx)</strong>
+            </mat-error>
+          </mat-form-field>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <mat-form-field>
+            <mat-label>Birthdate</mat-label>
+            <input matInput formControlName="birthDate" required name="birthDate" [matDatepicker]="picker" readonly placeholder="MM/DD/YYYY (please use the date picker button)"/>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="form.get('birthDate')?.dirty && form.get('birthDate')?.hasError('required')">
+              Birthdate is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required name="email" />
+            <mat-error *ngIf="form.get('email')?.dirty && form.get('email')?.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="form.get('email')?.dirty && !form.get('email')?.hasError('required') && form.get('email')?.hasError('email')">
+              Invalid email <strong>(ex: name.firstname@gmail.com)</strong>
+            </mat-error>
+          </mat-form-field>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <mat-form-field>
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" required formControlName="password" name="password">
+            <button mat-icon-button matSuffix (click)="swapHidePassword()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword" type="button">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="form.get('password')?.dirty && form.get('password')?.hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <mat-button-toggle-group [value]="model.isPrivate ? 'private': 'public'">
+            <mat-button-toggle value="private">Private</mat-button-toggle>
+            <mat-button-toggle value="public">Public</mat-button-toggle>
+          </mat-button-toggle-group>
+        </th>
+      </tr>
+    </table>
+
+    <mat-card-actions align="end">
+      <button mat-button [disabled]="form.invalid">Submit</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

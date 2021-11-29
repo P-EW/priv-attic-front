@@ -19,6 +19,11 @@ import { CommentComponent } from './shared/comment/comment.component';
 import {MatInputModule} from "@angular/material/input";
 import { ProfileComponent } from './profile/profile.component';
 import {MatTabsModule} from "@angular/material/tabs";
+import { EditProfileComponent } from './shared/edit-profile/edit-profile.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
   declarations: [
@@ -27,7 +32,8 @@ import {MatTabsModule} from "@angular/material/tabs";
     PostComponent,
     CommentsComponent,
     CommentComponent,
-    ProfileComponent
+    ProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     HttpClientModule,
@@ -43,6 +49,10 @@ import {MatTabsModule} from "@angular/material/tabs";
     MatChipsModule,
     MatInputModule,
     MatTabsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

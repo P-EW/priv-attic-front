@@ -11,20 +11,10 @@ export class UserService {
 
   // private property to store all backend URLs
   private readonly _backendURL: any;
-  // private property to store default user
-  private readonly _defaultUser: User;
+  private readonly _defaultImage: string;
 
   constructor(private _http: HttpClient) {
-    this._defaultUser = {
-      firstname: 'default',
-      lastname: 'user',
-      pseudo: 'defaultuser',
-      email: 'default@user.com',
-      birthdate: new Date(),
-      phone: '0000000000',
-      image : 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-      isPrivate: true,
-    };
+    this._defaultImage = 'https://t3.ftcdn.net/jpg/00/57/04/58/360_F_57045887_HHJml6DJVxNBMqMeDqVJ0ZQDnotp5rGD.jpg';
 
     this._backendURL = {};
 
@@ -39,18 +29,11 @@ export class UserService {
     Object.keys(environment.backend.endpoints).forEach(k => this._backendURL[ k ] = `${baseUrl}${environment.backend.endpoints[ k ]}`);
   }
 
-  /**
-   * Returns private property _defaultUser
-   */
-  get defaultUser(): User {
-    return this._defaultUser;
-  }
-
   fetchOne(userId: string): Observable<User> {
     return this._http.get<User>(this._backendURL.oneUserId.replace(':id', userId)).pipe(
       map((user: User) => {
         if(!user?.image){
-          user.image = 'https://material.angular.io/assets/img/examples/shiba2.jpg';
+          user.image = this._defaultImage;
         }
         return user
       })
@@ -61,7 +44,7 @@ export class UserService {
     return this._http.get<User>(this._backendURL.oneFromPseudo.replace(':pseudo', pseudo)).pipe(
       map((user: User) => {
         if(!user?.image){
-          user.image = 'https://material.angular.io/assets/img/examples/shiba2.jpg';
+          user.image = this._defaultImage;
         }
         return user
       })
