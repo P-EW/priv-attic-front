@@ -40,6 +40,9 @@ export class UserService {
         if(!user?.image){
           user.image = this._defaultImage;
         }
+        else{
+          user.image = this._backendURL.getFileByName.replace(':filename', user.image);
+        }
         return user
       })
     );
@@ -51,13 +54,16 @@ export class UserService {
         if(!user?.image){
           user.image = this._defaultImage;
         }
+        else{
+          user.image = this._backendURL.getFileByName.replace(':filename', user.image);
+        }
         return user
       })
     );
   }
 
   create(user : User): Observable<any> {
-    return this._http.post(this._backendURL.allUsers, user,UserService._options());
+    return this._http.post(this._backendURL.newUser, user,UserService._options());
   }
 
   private static  _options(headerList: object = {}): any {
