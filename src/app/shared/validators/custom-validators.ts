@@ -12,10 +12,10 @@ export class CustomValidators {
   /**
    * Function to control email with custom validator
    */
-  static emailcheck(control: AbstractControl): ValidationErrors | null {
+  static imagecheck(control: AbstractControl): ValidationErrors | null {
     // returns control
-    return /^.+@.+\..+$/.test(control.value) ? null : {
-      email: true
+    return /^.*\.(jpg|png|gif)$/.test(control.value) ? null : {
+      image: true
     };
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {User} from "../types";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable, map} from "rxjs";
 
@@ -29,6 +29,11 @@ export class UserService {
     Object.keys(environment.backend.endpoints).forEach(k => this._backendURL[ k ] = `${baseUrl}${environment.backend.endpoints[ k ]}`);
   }
 
+  getImage() : string {
+    return this._defaultImage;
+  }
+
+
   fetchOne(userId: string): Observable<User> {
     return this._http.get<User>(this._backendURL.oneUserId.replace(':id', userId)).pipe(
       map((user: User) => {
@@ -49,5 +54,13 @@ export class UserService {
         return user
       })
     );
+  }
+
+  create(user : User): Observable<any> {
+    return this._http.post(this._backendURL.allUsers, user,UserService._options());
+  }
+
+  private static  _options(headerList: object = {}): any {
+    return { headers: new HttpHeaders(Object.assign({ 'Content-Type': 'application/json' }, headerList)) };
   }
 }

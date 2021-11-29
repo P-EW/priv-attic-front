@@ -28,6 +28,8 @@ import { CreatePostComponent } from './create-post/create-post.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { ConnectionComponent } from './connection/connection.component';
 import {RouterModule} from '@angular/router';
+import { InscriptionPersonComponent } from './inscription-person/inscription-person.component';
+import {DeactivatedGuardInscriptionService} from "./shared/guard/deactivated-guard-inscription.service";
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +41,7 @@ import {RouterModule} from '@angular/router';
     EditProfileComponent,
     CreatePostComponent,
     ConnectionComponent,
+    InscriptionPersonComponent,
   ],
   imports: [
     HttpClientModule,
@@ -61,7 +64,7 @@ import {RouterModule} from '@angular/router';
     MatAutocompleteModule,
     RouterModule,
     ],
-  providers: [],
+  providers: [DeactivatedGuardInscriptionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

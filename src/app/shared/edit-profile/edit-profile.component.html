@@ -68,7 +68,7 @@
         <th colspan="2">
           <mat-form-field>
             <mat-label>Birthdate</mat-label>
-            <input matInput formControlName="birthDate" required name="birthDate" [matDatepicker]="picker" readonly placeholder="MM/DD/YYYY (please use the date picker button)"/>
+            <input matInput formControlName="birthDate" required name="birthDate"  [value]="birthdate" [matDatepicker]="picker" readonly placeholder="MM/DD/YYYY (please use the date picker button)"/>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error *ngIf="form.get('birthDate')?.dirty && form.get('birthDate')?.hasError('required')">
