@@ -26,7 +26,8 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import { CreatePostComponent } from './create-post/create-post.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
-
+import { ConnectionComponent } from './connection/connection.component';
+import {RouterModule} from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,9 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     CommentComponent,
     ProfileComponent,
     EditProfileComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    CommentComponent,
+    ConnectionComponent,
   ],
   imports: [
     HttpClientModule,
@@ -56,8 +59,22 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonToggleModule,
-    MatAutocompleteModule
-  ],
+    MatAutocompleteModule,
+        RouterModule,
+        HttpClientModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatListModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatChipsModule,
+        MatInputModule,
+        ReactiveFormsModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

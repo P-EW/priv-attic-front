@@ -4,6 +4,7 @@ import {FeedComponent} from "./feed/feed.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {EditProfileComponent} from "./shared/edit-profile/edit-profile.component";
 import {CreatePostComponent} from "./create-post/create-post.component";
+import {ConnectionComponent} from "./connection/connection.component";
 
 const routes: Routes = [
   { path: '', component: FeedComponent },
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'profile/:pseudo', component: ProfileComponent },
   { path: 'edit/profile', component: EditProfileComponent },
   { path: 'post', component: CreatePostComponent },
+  { path: 'connection', component: ConnectionComponent},
 ];
 
 @NgModule({

@@ -17,6 +17,7 @@ export type User = {
   phone: string;
   isPrivate: boolean;
   motto?: Motto[];
+  password?: string;
 };
 
 export type Motto = {

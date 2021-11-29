@@ -1,4 +1,6 @@
 import {Component, HostListener} from '@angular/core';
+import {AuthService} from "./shared/services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,7 @@ export class AppComponent {
 
   private screenWidth: number;
 
-  constructor() {
+  constructor(private _authService : AuthService, private _router: Router) {
     this.screenWidth = window.innerWidth;
   }
 
@@ -21,5 +23,14 @@ export class AppComponent {
 
   isMobile(){
     return this.screenWidth <= 600;
+  }
+
+  isLogged():boolean{
+    return this._authService.isLogged();
+  }
+
+  logout() {
+    this._authService.logout();
+    this._router.navigate(['']);
   }
 }

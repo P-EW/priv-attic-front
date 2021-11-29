@@ -9,6 +9,7 @@ export const environment = {
     host: 'localhost',
     port: '3000',
     endpoints: {
+      connection:'/auth/login',
       allPosts: '/posts',
       postFromPseudo: '/posts/from/:pseudo',
       onePost: '/posts/:id',

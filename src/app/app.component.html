@@ -11,19 +11,19 @@
 
   <!-- profile menu panel -->
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>
+    <button *ngIf="!isLogged()" mat-menu-item [routerLink]="'/connection'">
       <mat-icon>login</mat-icon>
       <span>Login</span>
     </button>
-    <button mat-menu-item>
+    <button *ngIf="isLogged()" mat-menu-item (click)="logout()" >
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
     </button>
-    <button mat-menu-item [routerLink]="['edit/profile']">
+    <button  *ngIf="isLogged()" mat-menu-item [routerLink]="['edit/profile']">
       <mat-icon>settings</mat-icon>
       <span>Settings</span>
     </button>
-    <button mat-menu-item [routerLink]="['profile']">
+    <button  *ngIf="isLogged()" mat-menu-item [routerLink]="['profile']">
       <mat-icon>account_circle</mat-icon>
       <span>Profile</span>
     </button>
