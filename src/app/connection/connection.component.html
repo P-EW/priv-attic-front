@@ -1,0 +1,45 @@
+ <form novalidate [formGroup]="form" >
+    <mat-card [class.mat-elevation-z12]="true" class="card">
+      <mat-card-header>
+        <mat-card-title><h1>Connexion</h1></mat-card-title>
+        <mat-card-subtitle><h3>Welcome to priv'attic !</h3></mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content style="text-align: center">
+        <p>
+          <mat-form-field class="full-width" [class.mgb15]="form.get('pseudo')?.dirty && form.get('pseudo')?.invalid">
+            <input matInput placeholder="Pseudo" formControlName="pseudo" minlength="2" required name="pseudo" />
+            <mat-error *ngIf="form.get('pseudo')?.dirty && form.get('pseudo')?.hasError('required')">
+              Pseudo is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="form.get('pseudo')?.dirty && form.get('pseudo')?.hasError('minlength')">
+              Pseudo is <strong>2 chars min</strong>
+            </mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="standard">
+            <mat-label>Password</mat-label>
+            <input required formControlName="password" type="password" matInput placeholder="******">
+            <mat-error *ngIf="form.get('password')?.dirty && form.get('password')?.hasError('required')">
+              Mot de passe <strong>requis</strong>
+            </mat-error>
+            <mat-error *ngIf="form.get('password')?.dirty && form.get('password')?.hasError('upperPwd')">
+              Nécessite <strong>une majuscule</strong>
+            </mat-error>
+            <mat-error *ngIf="form.get('password')?.dirty && form.get('password')?.hasError('numberPwd')">
+              Nécessite <strong>un nombre</strong>
+            </mat-error>
+            <mat-error *ngIf="form.get('password')?.dirty && form.get('password')?.hasError('minlength')">
+              Nécessite au moins <strong>8 valeurs</strong>
+            </mat-error>
+          </mat-form-field>
+        </p>
+      </mat-card-content>
+      <mat-card-actions style="text-align: center; margin-bottom: 15px;">
+        <button type="button" [routerLink]="['']" mat-button>Home</button>
+        <button mat-stroked-button color="primary" type="submit" (click)="submit()">login</button>
+        <a mat-list-item  routerLink="/inscription" >You do not have an account ? </a>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+

@@ -11,11 +11,11 @@
 
   <!-- profile menu panel -->
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>
+    <button *ngIf="!isLogged()" mat-menu-item [routerLink]="'/connection'">
       <mat-icon>login</mat-icon>
       <span>Login</span>
     </button>
-    <button mat-menu-item>
+    <button *ngIf="isLogged()" mat-menu-item (click)="logout()" >
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
     </button>

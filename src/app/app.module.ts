@@ -17,16 +17,20 @@ import {HttpClientModule} from "@angular/common/http";
 import { CommentsComponent } from './comments/comments.component';
 import { CommentComponent } from './shared/comment/comment.component';
 import {MatInputModule} from "@angular/material/input";
-
+import { ConnectionComponent } from './connection/connection.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import {RouterModule} from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
     FeedComponent,
     PostComponent,
     CommentsComponent,
-    CommentComponent
+    CommentComponent,
+    ConnectionComponent,
   ],
     imports: [
+        RouterModule,
         HttpClientModule,
         BrowserModule,
         AppRoutingModule,
@@ -39,6 +43,7 @@ import {MatInputModule} from "@angular/material/input";
         MatCardModule,
         MatChipsModule,
         MatInputModule,
+        ReactiveFormsModule,
     ],
   providers: [],
   bootstrap: [AppComponent]
