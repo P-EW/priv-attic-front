@@ -13,7 +13,7 @@ export const environment = {
       allPosts: '/posts',
       postFromPseudo: '/posts/from/:pseudo',
       onePost: '/posts/:id',
-
+      allUsers: '/users/register',
       oneUserId: '/users/user/:id',
       oneFromPseudo: '/users/:pseudo',
 

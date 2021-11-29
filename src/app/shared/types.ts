@@ -13,7 +13,7 @@ export type User = {
   firstname: string;
   lastname: string;
   email: string;
-  birthDate: string;
+  birthDate: number;
   phone: string;
   isPrivate: boolean;
   motto?: Motto[];
