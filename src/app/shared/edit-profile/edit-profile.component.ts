@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {User} from "../types";
 import {UserService} from "../services/user.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -18,18 +18,22 @@ export class EditProfileComponent implements OnInit {
 
   private _model: User;
   private readonly _form: FormGroup;
+  private _isPrivate: boolean;
 
   constructor(private _userService: UserService) {
     this._hidePassword = true;
     this._model = {} as User;
     this._form = EditProfileComponent._buildForm();
+    this._isPrivate = false;
   }
 
   ngOnInit(): void {
     this._userService.fetchOneFromPseudo("P-EW").subscribe((user:User)=> {
       this._model = user;
-      this._model.birthDate = new Date(this._model.birthDate + new Date().getTimezoneOffset()*60*1000).toISOString()
+      this._model.birthDate = new Date(this._model.birthDate).toISOString()
       this._form.patchValue(this._model)
+
+      this._isPrivate = this._model.isPrivate;
     });
   }
 
@@ -39,6 +43,10 @@ export class EditProfileComponent implements OnInit {
 
   swapHidePassword(): void {
     this._hidePassword = !this._hidePassword;
+  }
+
+  swapIsPrivate() {
+    this._isPrivate = !this._isPrivate;
   }
 
   get form(): FormGroup {
@@ -77,5 +85,12 @@ export class EditProfileComponent implements OnInit {
         Validators.required
       ])),
     });
+  }
+
+  submit(user: User): void {
+    user.birthDate = new Date(user.birthDate).getTime().toString();
+    user.isPrivate = this._isPrivate;
+    //TODO FAIRE UN PATCH OU UN POST SELON INSCRIPTION/MàJ
+    console.log(user);
   }
 }

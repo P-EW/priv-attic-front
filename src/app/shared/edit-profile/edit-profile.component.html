@@ -108,15 +108,15 @@
       <tr>
         <th colspan="2">
           <mat-button-toggle-group [value]="model.isPrivate ? 'private': 'public'">
-            <mat-button-toggle value="private">Private</mat-button-toggle>
-            <mat-button-toggle value="public">Public</mat-button-toggle>
+            <mat-button-toggle value="private" (click)="swapIsPrivate()">Private</mat-button-toggle>
+            <mat-button-toggle value="public" (click)="swapIsPrivate()">Public</mat-button-toggle>
           </mat-button-toggle-group>
         </th>
       </tr>
     </table>
 
     <mat-card-actions align="end">
-      <button mat-button [disabled]="form.invalid">Submit</button>
+      <button mat-button [disabled]="form.invalid" (click)="submit(form.value)">Submit</button>
     </mat-card-actions>
   </form>
 </mat-card>
