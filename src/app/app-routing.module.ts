@@ -10,12 +10,12 @@ import {InscriptionPersonComponent} from "./inscription-person/inscription-perso
 import {DeactivatedGuardInscriptionService} from "./shared/guard/deactivated-guard-inscription.service";
 
 const routes: Routes = [
-  { path: '', component: FeedComponent , pathMatch:'full' },
+  { path: '', component: FeedComponent  },
   { path: 'profile', component: ProfileComponent, canActivate : [AuthGardService]},
   { path: 'profile/:pseudo', component: ProfileComponent },
   { path: 'edit/profile', component: EditProfileComponent, canActivate :[ AuthGardService]},
   { path: 'post', component: CreatePostComponent, canActivate :[ AuthGardService] },
-  { path: 'connection', component: ConnectionComponent},
+  { path: 'login', component: ConnectionComponent},
   { path: 'inscription', component: InscriptionPersonComponent, canDeactivate: [DeactivatedGuardInscriptionService]}
 
 ];
