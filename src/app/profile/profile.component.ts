@@ -5,6 +5,7 @@ import {PostService} from "../shared/services/post.service";
 import {CommentService} from "../shared/services/comment.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {merge, mergeMap, filter} from "rxjs";
+import {AuthService} from "../shared/services/auth.service";
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,7 @@ export class ProfileComponent implements OnInit {
   private _user: User;
   private _posts: Post[];
 
-  constructor(private _userService: UserService, private _postService: PostService, private _commentService: CommentService, private _route: ActivatedRoute, private _router: Router) {
+  constructor(private _userService: UserService, private _postService: PostService, private _commentService: CommentService, private _route: ActivatedRoute, private _router: Router, private _authService :AuthService) {
     this._user = {} as User;
     this._posts = [];
   }
@@ -29,7 +30,10 @@ export class ProfileComponent implements OnInit {
       ),
       this._route.params.pipe(
         filter((params: any) => !params.pseudo),
-        mergeMap(() => this._userService.fetchOneFromPseudo("P-EW")), //TODO a changer plus tard par l'user connecté sinon redirect comme pour l'erreur
+        mergeMap(() =>
+          // we don't bother with '' -> you can't access here if you're not logged so token id MUST be defined
+          this._userService.fetchOne(this._authService.getToken()?.id || '')
+        ),
       )
     )
       .subscribe({

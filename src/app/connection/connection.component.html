@@ -2,9 +2,9 @@
     <mat-card [class.mat-elevation-z12]="true" class="card">
       <mat-card-header>
         <mat-card-title><h1>Connexion</h1></mat-card-title>
-        <mat-card-subtitle><h3>Welcome to priv'attic !</h3></mat-card-subtitle>
+        <mat-card-subtitle><h3>Welcome to Priv'Attic !</h3></mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content style="text-align: center">
+      <mat-card-content class="center">
         <p>
           <mat-form-field class="full-width" [class.mgb15]="form.get('pseudo')?.dirty && form.get('pseudo')?.invalid">
             <input matInput placeholder="Pseudo" formControlName="pseudo" minlength="2" required name="pseudo" />
@@ -34,12 +34,14 @@
             </mat-error>
           </mat-form-field>
         </p>
+        <mat-error *ngIf="loginFailed">
+          <strong>Username or password is incorrect !</strong>
+        </mat-error>
       </mat-card-content>
-      <mat-card-actions style="text-align: center; margin-bottom: 15px;">
+      <mat-card-actions class="center">
         <button type="button" [routerLink]="['']" mat-button>Home</button>
         <button mat-stroked-button color="primary" type="submit" (click)="submit()">login</button>
-        <a mat-list-item  routerLink="/inscription" >You do not have an account ? </a>
       </mat-card-actions>
+      <a mat-list-item  [routerLink]="['inscription']">You do not have an account ? </a>
     </mat-card>
   </form>
-

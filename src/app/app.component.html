@@ -11,7 +11,7 @@
 
   <!-- profile menu panel -->
   <mat-menu #menu="matMenu">
-    <button *ngIf="!isLogged()" mat-menu-item [routerLink]="'/connection'">
+    <button *ngIf="!isLogged()" mat-menu-item [routerLink]="['login']">
       <mat-icon>login</mat-icon>
       <span>Login</span>
     </button>

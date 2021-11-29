@@ -15,7 +15,6 @@ import {Post} from "../shared/types";
 })
 export class CreatePostComponent implements OnInit {
 
-  //TODO ajouter une guard
   //TODO ajouter l'upload d'image
 
   private _tags: string[];

@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'profile/:pseudo', component: ProfileComponent },
   { path: 'edit/profile', component: EditProfileComponent, canActivate :[ AuthGardService]},
   { path: 'post', component: CreatePostComponent, canActivate :[ AuthGardService] },
-  { path: 'connection', component: ConnectionComponent},
+  { path: 'login', component: ConnectionComponent},
 ];
 
 @NgModule({
