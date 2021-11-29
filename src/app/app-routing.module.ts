@@ -5,13 +5,14 @@ import {ProfileComponent} from "./profile/profile.component";
 import {EditProfileComponent} from "./shared/edit-profile/edit-profile.component";
 import {CreatePostComponent} from "./create-post/create-post.component";
 import {ConnectionComponent} from "./connection/connection.component";
+import {AuthGardService} from "./shared/guard/auth-guard.service";
 
 const routes: Routes = [
   { path: '', component: FeedComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate : [AuthGardService]},
   { path: 'profile/:pseudo', component: ProfileComponent },
-  { path: 'edit/profile', component: EditProfileComponent },
-  { path: 'post', component: CreatePostComponent },
+  { path: 'edit/profile', component: EditProfileComponent, canActivate :[ AuthGardService]},
+  { path: 'post', component: CreatePostComponent, canActivate :[ AuthGardService] },
   { path: 'connection', component: ConnectionComponent},
 ];
 

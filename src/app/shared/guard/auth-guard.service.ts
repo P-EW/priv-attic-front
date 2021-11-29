@@ -11,7 +11,7 @@ export class AuthGardService implements CanActivate{
   constructor(private _router:Router, private _authService: AuthService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if(!this._authService.isUserLoggedIn()){
+    if(!this._authService.isLogged()){
       this._router.navigate(["connection"],{ queryParams: { retUrl: route.url} });
       return false;
     }else{
