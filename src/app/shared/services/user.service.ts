@@ -57,7 +57,7 @@ export class UserService {
   }
 
   create(user : User): Observable<any> {
-    return this._http.post(this._backendURL.allUsers, user,this._options());
+    return this._http.post(this._backendURL.allUsers, user,UserService._options());
   }
 
   private static  _options(headerList: object = {}): any {
