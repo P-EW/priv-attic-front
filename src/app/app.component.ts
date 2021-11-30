@@ -17,7 +17,6 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if (!this.isLogged()) this._router.navigate(['explore']);
   }
 
   @HostListener('window:resize', ['$event'])

@@ -46,7 +46,6 @@ export class ProfileComponent implements OnInit {
           this._router.navigate(['home']);
         }
       });
-
   }
 
   get user(): User {

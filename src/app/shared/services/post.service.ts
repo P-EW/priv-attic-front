@@ -55,6 +55,18 @@ export class PostService {
       )
   }
 
+  fetchOne(postId: string): Observable<Post> {
+    return this._http.get<Post>(this._backendURL.onePost.replace(':id', postId))
+      .pipe(
+        filter((post:Post) => !!post),
+        map((post:Post) => {
+          if(post?.mediaContent) {post.mediaContent = this._backendURL.getFileByName.replace(':filename', post.mediaContent);}
+          return post;
+        }),
+        defaultIfEmpty({} as Post)
+      )
+  }
+
   upload(file: File, postId:string): Observable<Post> {
     const formData = new FormData();
     formData.append("file", file);

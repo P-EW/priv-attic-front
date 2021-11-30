@@ -18,7 +18,7 @@
           <div mat-card-avatar mat-card-lg-image class="header-image" [ngStyle]="{ 'background-image': 'url('+model.image+')'}" *ngIf="model?.image">
             <div class="overlay" (click)="fileInput.click()">
               <mat-icon class="icon">edit</mat-icon>
-              <input #fileInput type="file" hidden (change)="onFileSelected($event.target)">
+              <input #fileInput type="file" hidden (change)="onFileSelected($event)">
             </div>
           </div>
           <mat-error *ngIf="!isValid">

@@ -97,9 +97,14 @@ export class EditProfileComponent implements OnInit {
   }
 
   onFileSelected($event: any){
-    const file:File = $event.files[0];
+    const file:File = $event.target.files[0];
     if (file) {
       this._userFile = file;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this._model.image = reader.result+'';
+      };
     }
   }
 

@@ -4,7 +4,7 @@ import {UserService} from "../services/user.service";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {AuthService} from "../services/auth.service";
 import {LikeService} from "../services/like.service";
-
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-post',
@@ -31,14 +31,17 @@ export class PostComponent implements OnInit {
   private _publisher: User;
 
   private _hideComments: boolean;
-  private _isFav: boolean;   // TODO A FETCHER PLUS TARD
+  private _isFav: boolean;
   private _nbLike : number;
-  constructor(private _userService: UserService, private _authService :AuthService, private _likeService : LikeService) {
+  private _shareMsg :string;
+
+  constructor(private _userService: UserService, private _authService :AuthService, private _likeService : LikeService, private _clipboard: Clipboard) {
     this._hideComments = true;
     this._isFav = false;
     this._post = {} as Post;
     this._publisher = {} as User;
     this._nbLike = 0;
+    this._shareMsg = 'Click to copy the link !';
   }
 
   ngOnInit(): void {
@@ -104,6 +107,15 @@ export class PostComponent implements OnInit {
 
   isLogged(): boolean {
     return this._authService.isLogged();
+  }
+
+  copyLink() {
+    this._shareMsg = 'Link copied !';
+    this._clipboard.copy(window.location.origin+'/post/'+this._post._id);
+  }
+
+  get shareMsg(){
+    return this._shareMsg;
   }
 
 }

@@ -99,6 +99,11 @@ export class InscriptionPersonComponent implements OnInit, IDeactivateComponent 
     const file:File = $event.files[0];
     if (file) {
       this._userFile = file;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this._model.image = reader.result+'';
+      };
     }
   }
 
