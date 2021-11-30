@@ -66,7 +66,17 @@ export class UserService {
     return this._http.post(this._backendURL.newUser, user,UserService._options());
   }
 
+  updateOne(user : User, oldPseudo:string): Observable<User> {
+    return this._http.patch<User>(this._backendURL.patchUser.replace(':pseudo', oldPseudo), user);
+  }
+
   private static  _options(headerList: object = {}): any {
     return { headers: new HttpHeaders(Object.assign({ 'Content-Type': 'application/json' }, headerList)) };
+  }
+
+  upload(file: File, pseudo:string): Observable<User> {
+    const formData = new FormData();
+    formData.append("file", file);
+    return this._http.post<User>(this._backendURL.sendUserImage.replace(':pseudo', pseudo), formData);
   }
 }

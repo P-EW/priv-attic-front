@@ -12,12 +12,14 @@ export const environment = {
       onePost: '/posts/:id',
 
       newUser: '/users/register',
+      patchUser: '/users/:pseudo',
       oneUserId: '/users/user/:id',
       oneFromPseudo: '/users/:pseudo',
 
       commentsFromPost: '/comments/from/:id',
 
       getFileByName: '/media/:filename',
+      sendUserImage: '/media/user/:pseudo',
     }
   }
 };

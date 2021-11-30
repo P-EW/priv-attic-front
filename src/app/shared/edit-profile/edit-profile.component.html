@@ -16,8 +16,9 @@
         </th>
         <th rowspan="2">
           <div mat-card-avatar mat-card-lg-image class="header-image" [ngStyle]="{ 'background-image': 'url('+model.image+')'}" *ngIf="model?.image">
-            <div class="overlay">
+            <div class="overlay" (click)="fileInput.click()">
               <mat-icon class="icon">edit</mat-icon>
+              <input #fileInput type="file" hidden (change)="onFileSelected($event.target)">
             </div>
           </div>
         </th>
@@ -68,12 +69,9 @@
         <th colspan="2">
           <mat-form-field>
             <mat-label>Birthdate</mat-label>
-            <input matInput formControlName="birthDate" required name="birthDate"  [value]="birthdate" [matDatepicker]="picker" readonly placeholder="MM/DD/YYYY (please use the date picker button)"/>
+            <input matInput required name="birthDate"  [value]="birthdate" [matDatepicker]="picker" readonly placeholder="MM/DD/YYYY (please use the date picker button)"/>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="form.get('birthDate')?.dirty && form.get('birthDate')?.hasError('required')">
-              Birthdate is <strong>required</strong>
-            </mat-error>
           </mat-form-field>
         </th>
       </tr>
