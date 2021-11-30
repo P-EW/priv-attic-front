@@ -101,16 +101,16 @@
               <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
             <mat-error *ngIf="form.get('password')?.dirty && form.get('password')?.hasError('required')">
-              Mot de passe <strong>requis</strong>
+              Password <strong>requied</strong>
             </mat-error>
             <mat-error *ngIf="form.get('password')?.dirty && form.get('password')?.hasError('upperPwd')">
-              Nécessite <strong>une majuscule</strong>
+              Required <strong>a Capital Letter</strong>
             </mat-error>
             <mat-error *ngIf="form.get('password')?.dirty && form.get('password')?.hasError('numberPwd')">
-              Nécessite <strong>un nombre</strong>
+              Required <strong>a number</strong>
             </mat-error>
             <mat-error *ngIf="form.get('password')?.dirty && form.get('password')?.hasError('minLength')">
-              Nécessite au moins <strong>8 valeurs</strong>
+              Required <strong> at least 8 values</strong>
             </mat-error>
           </mat-form-field>
         </th>
@@ -124,10 +124,10 @@
               <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
             <mat-error *ngIf="form.get('password2')?.dirty && form.get('password2')?.hasError('required')">
-              Mot de passe <strong>requis</strong>
+              Password <strong>requied</strong>
             </mat-error>
             <mat-error *ngIf="form.hasError('matching')" >
-              Les mots de passe ne <strong>correspondent pas</strong>
+              Passwords <strong>do not match</strong>
             </mat-error>
           </mat-form-field>
         </th>
