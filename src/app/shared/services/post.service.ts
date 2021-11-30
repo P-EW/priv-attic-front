@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Post} from "../types";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {defaultIfEmpty, filter, Observable} from "rxjs";
+import {defaultIfEmpty, filter, Observable, map} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,12 @@ export class PostService {
     return this._http.get<Post[]>(this._backendURL.allPosts)
       .pipe(
         filter((posts:Post[]) => !!posts),
+        map((posts: Post[]) =>
+          posts.map((post:Post) => {
+            if(post?.mediaContent) {post.mediaContent = this._backendURL.getFileByName.replace(':filename', post.mediaContent);}
+            return post;
+          }),
+        ),
         defaultIfEmpty([])
       )
   }
@@ -39,6 +45,12 @@ export class PostService {
     return this._http.get<Post[]>(this._backendURL.postFromPseudo.replace(':pseudo', user))
       .pipe(
         filter((posts:Post[]) => !!posts),
+        map((posts: Post[]) =>
+          posts.map((post:Post) => {
+            if(post?.mediaContent) {post.mediaContent = this._backendURL.getFileByName.replace(':filename', post.mediaContent);}
+            return post;
+          }),
+        ),
         defaultIfEmpty([])
       )
   }
