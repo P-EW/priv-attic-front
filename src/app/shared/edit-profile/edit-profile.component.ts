@@ -12,8 +12,8 @@ import {Router} from "@angular/router";
 })
 export class EditProfileComponent implements OnInit {
 
-  // TODO gerer l'image et le motto
-  // TODO faire une verification de formulaire pour image et motto ?
+  // TODO gerer le motto
+  // TODO faire une verification de formulaire pour motto ?
 
   private _hidePassword: boolean;
 
