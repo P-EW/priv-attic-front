@@ -15,6 +15,7 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-icon-button (click)="fav()" [color]="isFav? 'primary':''" [disabled]="!isLogged()">
+      <ng-container *ngIf="nbLike > 0" > {{nbLike}} </ng-container>
       <mat-icon [innerText]="isFav? 'favorite':'favorite_border'"></mat-icon>
     </button>
     <button mat-icon-button (click)="swapHideComments()" [color]="hideComments? '': 'primary'">

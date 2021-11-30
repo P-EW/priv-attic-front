@@ -23,6 +23,11 @@ export const environment = {
       getFileByName: '/media/:filename',
       sendUserImage: '/media/user/:pseudo',
       sendPostImage: '/media/post/:id',
+
+      newLike : '/likes',
+      getLikeByPost : '/likes/from/post/:postId',
+      getLikeByPostAndAuthor : '/likes/from/:postId/:authorId',
+      getNbLike : '/likes/nbLike/:postId'
     }
   }
 };

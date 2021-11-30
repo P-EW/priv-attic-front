@@ -32,3 +32,9 @@ export type Comment = {
   content: string;
   date: string;
 };
+
+export type Like = {
+  _id: string;
+  authorId: string;
+  postId: string;
+}
