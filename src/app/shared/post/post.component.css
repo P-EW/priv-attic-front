@@ -17,6 +17,10 @@
 }
 
 .mat-card-image {
+  object-fit: contain;
+  margin-left: -16px;
+  height: auto;
+  background : #202020;
   max-height: 50vh;
 }
 
