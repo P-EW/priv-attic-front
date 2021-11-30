@@ -54,4 +54,14 @@ export class PostService {
         defaultIfEmpty([])
       )
   }
+
+  upload(file: File, postId:string): Observable<Post> {
+    const formData = new FormData();
+    formData.append("file", file);
+    return this._http.post<Post>(this._backendURL.sendPostImage.replace(':id', postId), formData);
+  }
+
+  create(post : Post): Observable<Post> {
+    return this._http.post<Post>(this._backendURL.newPost, post);
+  }
 }

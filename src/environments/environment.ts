@@ -11,6 +11,7 @@ export const environment = {
     endpoints: {
       connection:'/auth/login',
 
+      newPost: '/posts',
       allPosts: '/posts',
       postFromPseudo: '/posts/from/:pseudo',
       onePost: '/posts/:id',
@@ -24,6 +25,7 @@ export const environment = {
 
       getFileByName: '/media/:filename',
       sendUserImage: '/media/user/:pseudo',
+      sendPostImage: '/media/post/:id',
     }
   }
 };

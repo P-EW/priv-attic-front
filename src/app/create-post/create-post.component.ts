@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {Post} from "../shared/types";
+import {AuthService} from "../shared/services/auth.service";
 
 @Component({
   selector: 'app-create-post',
@@ -15,18 +16,17 @@ import {Post} from "../shared/types";
 })
 export class CreatePostComponent implements OnInit {
 
-  //TODO ajouter l'upload d'image
-
   private _tags: string[];
   private _tagCtrl: FormControl;
   private readonly _form: FormGroup;
+  private _userFile : File;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   defaultTagList: string[] = ["Photography", "WildLife", "Dog", "Cat", "Meme"]; //TODO fetch depuis la db des categs ?
   filteredTags: Observable<string[]>;
   @ViewChild('tagInput') private _tagInput: ElementRef<HTMLInputElement>;
 
-  constructor(private _postService: PostService, private _router: Router) {
+  constructor(private _postService: PostService, private _router: Router, private _authService :AuthService) {
     this._tags = [];
     this._tagCtrl = new FormControl();
     this._tagInput = {} as ElementRef;
@@ -35,6 +35,7 @@ export class CreatePostComponent implements OnInit {
       map((tag: string | null) => (tag ? this._filter(tag) : this.defaultTagList.slice())),
     );
     this._form = CreatePostComponent._buildForm();
+    this._userFile = {} as File;
   }
 
   ngOnInit(): void {
@@ -95,12 +96,38 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
+  onFileSelected($event: any){
+    const file:File = $event.files[0];
+    if (file) {
+      this._userFile = file;
+    }
+  }
+
+  private _upload(post:Post){
+    if (this._userFile?.name) {
+      this._postService.upload(this._userFile, post._id).subscribe(() => this._router.navigate( ['profile']));
+    }
+    else {
+      this._router.navigate( ['profile'])
+    }
+  }
+
+  filename(): string {
+    return this._userFile.name;
+  }
+
   submit(post: Post): void {
-    //TODO ajouter une image quand l'upload sera fait.
-    //TODO ajouter une contrainte, il faut au moins une image ou du texte. (pas creer de post vide)
-    post.textContent = post.textContent?.trim()
+    post.textContent = post.textContent?.trim();
     post.categories = this._tags;
-    console.log(post);
+    post.publisherId = this._authService.getToken()?.id || '';
+
+    if((post?.textContent) || (this._userFile?.name.length > 0)){
+      if(post.textContent?.length === 0){
+        delete post.textContent;
+      }
+
+      this._postService.create(post).subscribe((p:Post) => this._upload(p));
+    }
   }
 
 
