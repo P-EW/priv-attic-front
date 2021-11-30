@@ -55,6 +55,13 @@ export class AuthService {
   }
 
   isLogged():boolean{
+    let tokenString = localStorage.getItem('userToken');
+    if(tokenString){
+      let token:Token = JSON.parse(tokenString) as Token;
+      if(+token.expiry < Date.now()){
+        this.logout();
+      }
+    }
     return localStorage.getItem('userToken') != null;
   }
 

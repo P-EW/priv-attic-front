@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Comment} from "../types";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {defaultIfEmpty, filter, Observable} from "rxjs";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class CommentService {
   // private property to store default post
   private readonly _defaultComment: Comment;
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private _authService :AuthService) {
     this._defaultComment = {
       _id: "1",
       authorId: "1",
@@ -49,4 +50,13 @@ export class CommentService {
         defaultIfEmpty([])
       )
   }
+
+  create(comment : Comment): Observable<any> {
+    return this._http.post<any>(this._backendURL.newComment, comment, CommentService._options({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}` }));
+  }
+
+  private static  _options(headerList: object = {}): any {
+    return { headers: new HttpHeaders(Object.assign({ 'Content-Type': 'application/json' }, headerList)) };
+  }
+
 }

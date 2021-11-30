@@ -17,6 +17,7 @@ export const environment = {
       oneUserId: '/users/user/:id',
       oneFromPseudo: '/users/:pseudo',
 
+      newComment: '/comments',
       commentsFromPost: '/comments/from/:id',
 
       getFileByName: '/media/:filename',

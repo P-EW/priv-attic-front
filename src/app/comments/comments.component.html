@@ -1,12 +1,15 @@
 <mat-card class="comment" *ngIf="comments.length">
   <app-comment [comment]="comment" *ngFor="let comment of comments"></app-comment>
 </mat-card>
-<div class="write">
+<form novalidate [formGroup]="form" class="write">
   <mat-form-field appearance="outline">
     <mat-label *ngIf="!isLogged()">Please login to comment !</mat-label>
     <mat-label *ngIf="isLogged()">Write a comment</mat-label>
-    <textarea matInput placeholder="Comment" [disabled]="!isLogged()"></textarea>
+    <textarea matInput placeholder="Comment" formControlName="textContent" name="textContent" maxlength="128"></textarea>
+    <mat-error *ngIf="form.get('textContent')?.dirty && form.get('textContent')?.hasError('maxLength') && form.get('textContent')?.hasError('required')">
+      Text must be under <strong>128 letters</strong>
+    </mat-error>
   </mat-form-field>
-  <button mat-raised-button color="accent" [disabled]="!isLogged()">Send</button>
-</div>
+  <button mat-raised-button color="accent" type="button" [disabled]="!isLogged() || form.invalid" (click)="submit(form.value.textContent)">Send</button>
+</form>
 
