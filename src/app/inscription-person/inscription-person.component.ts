@@ -20,6 +20,7 @@ export class InscriptionPersonComponent implements OnInit, IDeactivateComponent 
   private _model: User;
   private _hidePassword: boolean;
   _isPrivate: boolean;
+  private _userFile : File;
 
   constructor(private _userService : UserService, private _router : Router,) {
     this._hidePassword = true;
@@ -27,7 +28,9 @@ export class InscriptionPersonComponent implements OnInit, IDeactivateComponent 
     this._model = {} as User;
     this._model.image = this._userService.getImage();
     this._cancel$ = new EventEmitter<void>();
-    this._form = InscriptionPersonComponent._buildForm();}
+    this._form = InscriptionPersonComponent._buildForm();
+    this._userFile = {} as File;
+  }
   get model(): User {
     return this._model;
   }
@@ -86,6 +89,20 @@ export class InscriptionPersonComponent implements OnInit, IDeactivateComponent 
       isPrivate: new FormControl(),
     },{validators : CustomValidators.match('password','password2')} );
   }
+
+  onFileSelected($event: any){
+    const file:File = $event.files[0];
+    if (file) {
+      this._userFile = file;
+    }
+  }
+
+  private _upload(user:User){
+    if (this._userFile) {
+      this._userService.upload(this._userFile, user.pseudo).subscribe(() => this._router.navigate( ['profile']));
+    }
+  }
+
   submit(): void {
     delete this.form.value.password2;
     let user = this.form.value as User;
@@ -93,7 +110,10 @@ export class InscriptionPersonComponent implements OnInit, IDeactivateComponent 
     user.isPrivate = this._isPrivate;
     user.birthDate = new Date(user.birthDate).getTime();
     console.log(user);
-    this._userService.create(user).subscribe(() =>this._router.navigate(['']));
+    this._userService.create(user).subscribe(() => {
+      this._userService.updateOne(user, user.pseudo).subscribe((u:User) => this._upload(u));
+      this._router.navigate([''])
+    });
   }
 
   isPrivate(checked: boolean): void {

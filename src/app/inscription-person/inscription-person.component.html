@@ -16,8 +16,9 @@
         </th>
         <th rowspan="2">
           <div mat-card-avatar mat-card-lg-image class="header-image" [ngStyle]="{ 'background-image': 'url('+model.image+')'}" *ngIf="model?.image">
-            <div class="overlay">
+            <div class="overlay" (click)="fileInput.click()">
               <mat-icon class="icon">edit</mat-icon>
+              <input #fileInput type="file" hidden (change)="onFileSelected($event.target)">
             </div>
           </div>
         </th>
@@ -113,6 +114,8 @@
             </mat-error>
           </mat-form-field>
         </th>
+      </tr>
+      <tr>
         <th colspan="2">
           <mat-form-field>
             <mat-label>Confirmation </mat-label>
@@ -128,9 +131,8 @@
             </mat-error>
           </mat-form-field>
         </th>
-
-
       </tr>
+
       <tr>
         <th colspan="2">
           <mat-button-toggle-group [value]="_isPrivate ? 'private': 'public'">
