@@ -82,7 +82,6 @@ export class PostComponent implements OnInit {
   fav(){
     if(this._authService.isLogged()){
       if(!this._isFav){
-
         this._isFav= true;
         let like = {} as Like;
         like.postId = this._post._id;

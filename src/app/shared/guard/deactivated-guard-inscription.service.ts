@@ -12,6 +12,7 @@ export class DeactivatedGuardInscriptionService implements CanDeactivate<any>{
   constructor() { }
 
   canDeactivate(component: any, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
     return component.canExit ? component.canExit() : true;
   }
 

@@ -22,6 +22,7 @@ export class InscriptionPersonComponent implements OnInit, IDeactivateComponent 
   _isPrivate: boolean;
   private _userFile : File;
   private _isValid: boolean;
+  private _isSubmit : boolean;
 
   constructor(private _userService : UserService, private _router : Router,) {
     this._hidePassword = true;
@@ -32,6 +33,8 @@ export class InscriptionPersonComponent implements OnInit, IDeactivateComponent 
     this._form = InscriptionPersonComponent._buildForm();
     this._userFile = {} as File;
     this._isValid = true;
+    this._isSubmit = false;
+
   }
   get model(): User {
     return this._model;
@@ -115,6 +118,7 @@ export class InscriptionPersonComponent implements OnInit, IDeactivateComponent 
     if(!this._userFile?.name || ['image/gif', 'image/jpeg', 'image/jpg', 'image/png'].includes(this._userFile.type)){
       this._userService.create(user).subscribe(() => {
         this._userService.updateOne(user, user.pseudo).subscribe((u:User) => this._upload(u));
+        this._isSubmit = true;
         this._router.navigate(['login'])
       });
     }
@@ -132,7 +136,11 @@ export class InscriptionPersonComponent implements OnInit, IDeactivateComponent 
   }
 
   canExit(): Observable<boolean> | Promise<boolean> | boolean {
-    return (confirm("do you really want to leave the page without having finalized your registration?"));
+    if(this._isSubmit){
+      return true;
+    }else{
+      return (confirm("do you really want to leave the page without having finalized your registration?"));
+    }
   }
 
   convert0to33(phone : string): string{
