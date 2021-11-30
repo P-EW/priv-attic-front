@@ -8,15 +8,20 @@ import {ConnectionComponent} from "./connection/connection.component";
 import {AuthGardService} from "./shared/guard/auth-guard.service";
 import {InscriptionPersonComponent} from "./inscription-person/inscription-person.component";
 import {DeactivatedGuardInscriptionService} from "./shared/guard/deactivated-guard-inscription.service";
+import {ExploreComponent} from "./explore/explore.component";
+import {NotfoundComponent} from "./notfound/notfound.component";
 
 const routes: Routes = [
-  { path: '', component: FeedComponent  },
-  { path: 'profile', component: ProfileComponent, canActivate : [AuthGardService]},
+  { path: 'home', component: FeedComponent },
+  { path: 'explore', component: ExploreComponent },
+  { path: 'profile', component: ProfileComponent, canActivate : [AuthGardService] },
   { path: 'profile/:pseudo', component: ProfileComponent },
-  { path: 'edit/profile', component: EditProfileComponent, canActivate :[ AuthGardService]},
+  { path: 'edit/profile', component: EditProfileComponent, canActivate :[ AuthGardService] },
   { path: 'post', component: CreatePostComponent, canActivate :[ AuthGardService] },
   { path: 'login', component: ConnectionComponent},
-  { path: 'inscription', component: InscriptionPersonComponent, canDeactivate: [DeactivatedGuardInscriptionService]}
+  { path: 'inscription', component: InscriptionPersonComponent, canDeactivate: [DeactivatedGuardInscriptionService] },
+  { path: '**', component: NotfoundComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
 
 ];
 

@@ -1,7 +1,7 @@
 <mat-card class="card">
   <mat-card-header>
-    <div mat-card-avatar class="header-image" [ngStyle]="{ 'background-image': 'url('+publisher.image+')'}" *ngIf="publisher?.image"></div>
-    <mat-card-title>{{publisher?.firstname}} {{publisher?.lastname}}</mat-card-title>
+    <div mat-card-avatar [routerLink]="['/profile/'+publisher?.pseudo]" class="header-image" [ngStyle]="{ 'background-image': 'url('+publisher.image+')'}" *ngIf="publisher?.image" ></div>
+    <mat-card-title [routerLink]="['/profile/'+publisher?.pseudo]">{{publisher?.pseudo}}</mat-card-title>
     <small class="timestamp">{{post?.date | date:"dd/MM/yy, HH:mm"}}</small>
     <mat-card-subtitle>
       <mat-chip-list *ngIf="post?.categories">
@@ -14,7 +14,7 @@
     <img mat-card-image [src]="post.mediaContent" alt="Media Content" *ngIf="post?.mediaContent">
   </mat-card-content>
   <mat-card-actions>
-    <button mat-icon-button (click)="fav()" [color]="isFav? 'primary':''">
+    <button mat-icon-button (click)="fav()" [color]="isFav? 'primary':''" [disabled]="!isLogged()">
       <mat-icon [innerText]="isFav? 'favorite':'favorite_border'"></mat-icon>
     </button>
     <button mat-icon-button (click)="swapHideComments()" [color]="hideComments? '': 'primary'">

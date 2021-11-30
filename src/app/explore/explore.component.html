@@ -1,0 +1,8 @@
+<section>
+  <app-post [post]="post" *ngFor="let post of posts"></app-post>
+  <div class="wrapper" *ngIf="posts.length === 0">
+    <h1>😅</h1>
+    <h2>Ooops !</h2>
+    <h3>It seems like there is 0 post available... yet !</h3>
+  </div>
+</section>

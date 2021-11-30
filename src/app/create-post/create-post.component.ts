@@ -21,6 +21,9 @@ export class CreatePostComponent implements OnInit {
   private readonly _form: FormGroup;
   private _userFile : File;
 
+  private _isValid: boolean;
+  private _invalidMsg: string;
+
   separatorKeysCodes: number[] = [ENTER, COMMA];
   defaultTagList: string[] = ["Photography", "WildLife", "Dog", "Cat", "Meme"]; //TODO fetch depuis la db des categs ?
   filteredTags: Observable<string[]>;
@@ -36,6 +39,8 @@ export class CreatePostComponent implements OnInit {
     );
     this._form = CreatePostComponent._buildForm();
     this._userFile = {} as File;
+    this._isValid = true;
+    this._invalidMsg = ''
   }
 
   ngOnInit(): void {
@@ -121,14 +126,30 @@ export class CreatePostComponent implements OnInit {
     post.categories = this._tags;
     post.publisherId = this._authService.getToken()?.id || '';
 
-    if((post?.textContent) || (this._userFile?.name.length > 0)){
+    if((post?.textContent) || (this._userFile?.name?.length > 0 )){
       if(post.textContent?.length === 0){
         delete post.textContent;
       }
 
-      this._postService.create(post).subscribe((p:Post) => this._upload(p));
+      if(!this._userFile?.name || ['image/gif', 'image/jpeg', 'image/jpg', 'image/png'].includes(this._userFile.type)){
+        this._postService.create(post).subscribe((p:Post) => this._upload(p));
+      }
+      else{
+        this._isValid = false;
+        this._invalidMsg ='Please select a correct format file ! (jpg, jpeg, gif, png)';
+      }
     }
+    else {
+      this._isValid = false;
+      this._invalidMsg ='Please write something or choose a file !';
+      }
   }
 
+  get isValid(): boolean{
+    return this._isValid;
+  }
 
+  get invalidMsg(): string{
+    return this._invalidMsg;
+  }
 }

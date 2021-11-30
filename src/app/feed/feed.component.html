@@ -1,3 +1,18 @@
 <section>
   <app-post [post]="post" *ngFor="let post of posts"></app-post>
+  <div class="wrapper" *ngIf="!posts.length && isLogged()">
+    <h1>😅</h1>
+    <h2>Ooops !</h2>
+    <h3>It seems like you're following nobody or someone who :</h3>
+    <ul>
+      <li>have published a post.</li>
+      <li>have a public profile.</li>
+      <li>have a private profile and is following you too.</li>
+    </ul>
+  </div>
+  <div class="wrapper" *ngIf="!isLogged()">
+    <h1>😅</h1>
+    <h2>Ooops !</h2>
+    <h3>It seems like you're not connected !</h3>
+  </div>
 </section>

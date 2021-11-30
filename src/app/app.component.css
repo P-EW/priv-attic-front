@@ -52,10 +52,18 @@
   position: fixed;
 }
 
+.mat-nav-list > a {
+  border-radius: 25px;
+}
+
 .content {
   grid-column: 3;
 }
 
 .nav-icon {
   margin-right: 8px;
+}
+
+.active {
+  background-color: dimgray;
 }

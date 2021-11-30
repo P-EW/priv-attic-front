@@ -1,8 +1,12 @@
 <mat-card class="comment" *ngIf="comments.length">
   <app-comment [comment]="comment" *ngFor="let comment of comments"></app-comment>
 </mat-card>
-<mat-form-field appearance="outline">
-  <mat-label>Write a comment</mat-label>
-  <textarea matInput placeholder="Comment"></textarea>
-</mat-form-field>
+<div class="write">
+  <mat-form-field appearance="outline">
+    <mat-label *ngIf="!isLogged()">Please login to comment !</mat-label>
+    <mat-label *ngIf="isLogged()">Write a comment</mat-label>
+    <textarea matInput placeholder="Comment" [disabled]="!isLogged()"></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="accent" [disabled]="!isLogged()">Send</button>
+</div>
 

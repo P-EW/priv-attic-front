@@ -47,6 +47,9 @@
           </ng-container>
         </mat-autocomplete>
       </mat-form-field>
+      <mat-error *ngIf="!isValid">
+        {{invalidMsg}}
+      </mat-error>
       <button mat-raised-button color="accent" type="button" (click)="submit(form.value)" [disabled]="form.invalid">Post</button>
     </form>
   </mat-card-content>

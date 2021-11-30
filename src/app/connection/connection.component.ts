@@ -23,7 +23,7 @@ export class ConnectionComponent implements OnInit {
 
   ngOnInit(): void {
     //redirect if already logged in
-    if(this._authService.isLogged()) this._router.navigate( ['']);
+    if(this._authService.isLogged()) this._router.navigate( ['/home']);
 
 
     this._activedRoute.queryParamMap
@@ -58,7 +58,7 @@ export class ConnectionComponent implements OnInit {
       )
       .subscribe( () => {
         if(!this.loginFailed)
-          this._retUrl!=null ? this._router.navigate( [this._retUrl]) : this._router.navigate( [''])
+          this._retUrl!=null ? this._router.navigate( [this._retUrl]) : this._router.navigate( ['/home'])
       }
     );
   }

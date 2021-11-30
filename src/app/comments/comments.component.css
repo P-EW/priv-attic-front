@@ -7,3 +7,9 @@
 mat-form-field {
   width: 100%;
 }
+
+.write {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}

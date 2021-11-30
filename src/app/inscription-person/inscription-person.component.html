@@ -21,6 +21,9 @@
               <input #fileInput type="file" hidden (change)="onFileSelected($event.target)">
             </div>
           </div>
+          <mat-error *ngIf="!isValid">
+            Please select a correct format file ! (jpg, jpeg, gif, png)
+          </mat-error>
         </th>
       </tr>
       <tr>

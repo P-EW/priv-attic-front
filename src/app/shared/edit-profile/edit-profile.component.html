@@ -21,6 +21,9 @@
               <input #fileInput type="file" hidden (change)="onFileSelected($event.target)">
             </div>
           </div>
+          <mat-error *ngIf="!isValid">
+            Please select a correct format file ! (jpg, jpeg, gif, png)
+          </mat-error>
         </th>
       </tr>
       <tr>
@@ -106,8 +109,8 @@
       <tr>
         <th colspan="2">
           <mat-button-toggle-group [value]="model.isPrivate ? 'private': 'public'">
-            <mat-button-toggle value="private" (click)="swapIsPrivate()">Private</mat-button-toggle>
-            <mat-button-toggle value="public" (click)="swapIsPrivate()">Public</mat-button-toggle>
+            <mat-button-toggle value="private" (click)="swapIsPrivate(true)">Private</mat-button-toggle>
+            <mat-button-toggle value="public" (click)="swapIsPrivate(false)">Public</mat-button-toggle>
           </mat-button-toggle-group>
         </th>
       </tr>

@@ -39,11 +39,11 @@ export class ProfileComponent implements OnInit {
       .subscribe({
         next: (user: User) => {
           this._user = user;
-          this._postService.fetchUserPosts(this._user.pseudo).subscribe((posts: Post[])=> this._posts = posts)
+          this._postService.fetchUserPosts(this._user.pseudo).subscribe((posts: Post[])=> this._posts = posts.sort((a:Post, b:Post) => +b.date - +a.date))
         },
         error: () => {
           // manage error when user doesn't exist in DB
-          this._router.navigate(['']);
+          this._router.navigate(['home']);
         }
       });
 
@@ -59,5 +59,9 @@ export class ProfileComponent implements OnInit {
 
   motto(): string{
     return this._user.motto?.map(motto => motto.title).join(',') || ''; //TODO, voir plus tard ce qu'on en fait...
+  }
+
+  isLogged(): boolean {
+    return this._authService.isLogged();
   }
 }

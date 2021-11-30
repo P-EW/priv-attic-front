@@ -23,6 +23,7 @@ export class EditProfileComponent implements OnInit {
   private _birthdate : string ;
   private _userFile : File;
   private _oldPseudo: string;
+  private _isValid: boolean;
 
   constructor(private _userService: UserService, private _authService :AuthService, private _router: Router) {
     this._hidePassword = true;
@@ -32,6 +33,7 @@ export class EditProfileComponent implements OnInit {
     this._birthdate = '';
     this._oldPseudo = '';
     this._userFile = {} as File;
+    this._isValid = true;
   }
 
   ngOnInit(): void {
@@ -56,8 +58,8 @@ export class EditProfileComponent implements OnInit {
     this._hidePassword = !this._hidePassword;
   }
 
-  swapIsPrivate() {
-    this._isPrivate = !this._isPrivate;
+  swapIsPrivate(isPrivate : boolean) {
+    this._isPrivate = isPrivate;
   }
 
   get form(): FormGroup {
@@ -102,7 +104,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   private _upload(user:User){
-    if (this._userFile) {
+    if (this._userFile?.name) {
       this._userService.upload(this._userFile, user.pseudo).subscribe(() => this._router.navigate( ['profile']));
     }
   }
@@ -110,6 +112,16 @@ export class EditProfileComponent implements OnInit {
   submit(user: User): void {
     user.birthDate = new Date(this._birthdate).getTime();
     user.isPrivate = this._isPrivate;
-    this._userService.updateOne(user, this._oldPseudo).subscribe((u:User) => this._upload(u));
+
+    if(!this._userFile?.name || ['image/gif', 'image/jpeg', 'image/jpg', 'image/png'].includes(this._userFile.type)) {
+      this._userService.updateOne(user, this._oldPseudo).subscribe((u: User) => this._upload(u));
+    }
+    else {
+      this._isValid = false;
+    }
+  }
+
+  get isValid(): boolean{
+    return this._isValid;
   }
 }

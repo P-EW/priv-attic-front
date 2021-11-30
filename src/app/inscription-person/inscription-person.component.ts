@@ -21,6 +21,7 @@ export class InscriptionPersonComponent implements OnInit, IDeactivateComponent 
   private _hidePassword: boolean;
   _isPrivate: boolean;
   private _userFile : File;
+  private _isValid: boolean;
 
   constructor(private _userService : UserService, private _router : Router,) {
     this._hidePassword = true;
@@ -30,6 +31,7 @@ export class InscriptionPersonComponent implements OnInit, IDeactivateComponent 
     this._cancel$ = new EventEmitter<void>();
     this._form = InscriptionPersonComponent._buildForm();
     this._userFile = {} as File;
+    this._isValid = true;
   }
   get model(): User {
     return this._model;
@@ -98,8 +100,8 @@ export class InscriptionPersonComponent implements OnInit, IDeactivateComponent 
   }
 
   private _upload(user:User){
-    if (this._userFile) {
-      this._userService.upload(this._userFile, user.pseudo).subscribe(() => this._router.navigate( ['profile']));
+    if (this._userFile?.name) {
+      this._userService.upload(this._userFile, user.pseudo).subscribe(() => this._router.navigate( ['login']));
     }
   }
 
@@ -109,11 +111,20 @@ export class InscriptionPersonComponent implements OnInit, IDeactivateComponent 
     user.phone = this.convert0to33(user.phone);
     user.isPrivate = this._isPrivate;
     user.birthDate = new Date(user.birthDate).getTime();
-    console.log(user);
-    this._userService.create(user).subscribe(() => {
-      this._userService.updateOne(user, user.pseudo).subscribe((u:User) => this._upload(u));
-      this._router.navigate([''])
-    });
+
+    if(!this._userFile?.name || ['image/gif', 'image/jpeg', 'image/jpg', 'image/png'].includes(this._userFile.type)){
+      this._userService.create(user).subscribe(() => {
+        this._userService.updateOne(user, user.pseudo).subscribe((u:User) => this._upload(u));
+        this._router.navigate(['login'])
+      });
+    }
+    else {
+      this._isValid = false;
+    }
+  }
+
+  get isValid(): boolean{
+    return this._isValid;
   }
 
   isPrivate(checked: boolean): void {

@@ -4,6 +4,7 @@
 
 .header-image {
   background-size: cover;
+  cursor: pointer;
 }
 
 .mat-card-actions {
@@ -13,6 +14,14 @@
 
 .mat-card-actions > * {
   margin: auto;
+}
+
+.mat-card-image {
+  max-height: 50vh;
+}
+
+mat-card-title {
+  cursor: pointer;
 }
 
 .timestamp {

@@ -1,6 +1,6 @@
 <!--nav bar-->
 <mat-toolbar class="header">
-  <span [routerLink]="['']" class="title">Priv'Attic</span>
+  <span [routerLink]="['home']" class="title">Priv'Attic</span>
   <span class="spacer"></span>
   <button mat-icon-button [routerLink]="['post']">
     <mat-icon>add</mat-icon>
@@ -33,19 +33,19 @@
 <div [classList]="isMobile()? 'container': 'wrapper container'">
   <div class="nav" *ngIf="!isMobile()">
     <mat-nav-list>
-      <a mat-list-item [routerLink]="['']">
+      <a mat-list-item [routerLink]="['home']" routerLinkActive="active">
         <mat-icon class="nav-icon">home</mat-icon>
         <span>Home</span>
       </a>
-      <a href="#" mat-list-item>
+      <a href="#" mat-list-item routerLinkActive="active">
         <mat-icon class="nav-icon">search</mat-icon>
         <span>Search</span>
       </a>
-      <a href="#" mat-list-item>
+      <a href="#" mat-list-item [routerLink]="['explore']" routerLinkActive="active">
         <mat-icon class="nav-icon">explore</mat-icon>
         <span>Explore</span>
       </a>
-      <a href="#" mat-list-item>
+      <a href="#" mat-list-item routerLinkActive="active">
         <mat-icon class="nav-icon">notifications_none</mat-icon>
         <span>Notifications</span>
       </a>
@@ -58,7 +58,7 @@
 
 <!-- affichage bar en bas si mobile -->
 <mat-toolbar class="footer" *ngIf="isMobile()">
-  <button mat-icon-button [routerLink]="['']">
+  <button mat-icon-button [routerLink]="['home']">
     <mat-icon>home</mat-icon>
   </button>
   <button mat-icon-button>

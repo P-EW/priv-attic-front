@@ -15,7 +15,7 @@
       <mat-icon>person</mat-icon>
       <span>123</span>
     </a>
-    <a mat-button>
+    <a mat-button [disabled]="!isLogged()">
       <mat-icon>person_add_alt_1</mat-icon>
       <span>Follow</span>
     </a>
@@ -30,6 +30,7 @@
       <span>Posts</span>
     </ng-template>
     <app-post [post]="post" *ngFor="let post of posts"></app-post>
+    <h2 *ngIf="!posts.length">There's nothing to display... yet!</h2>
   </mat-tab>
 
   <mat-tab>

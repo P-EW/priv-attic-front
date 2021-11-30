@@ -30,6 +30,8 @@ import { ConnectionComponent } from './connection/connection.component';
 import {RouterModule} from '@angular/router';
 import { InscriptionPersonComponent } from './inscription-person/inscription-person.component';
 import {DeactivatedGuardInscriptionService} from "./shared/guard/deactivated-guard-inscription.service";
+import { ExploreComponent } from './explore/explore.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,27 +44,29 @@ import {DeactivatedGuardInscriptionService} from "./shared/guard/deactivated-gua
     CreatePostComponent,
     ConnectionComponent,
     InscriptionPersonComponent,
+    ExploreComponent,
+    NotfoundComponent,
   ],
-  imports: [
-    HttpClientModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatListModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatChipsModule,
-    MatInputModule,
-    MatTabsModule,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatButtonToggleModule,
-    MatAutocompleteModule,
-    RouterModule,
+    imports: [
+        HttpClientModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatListModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatChipsModule,
+        MatInputModule,
+        MatTabsModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatButtonToggleModule,
+        MatAutocompleteModule,
+        RouterModule,
     ],
   providers: [DeactivatedGuardInscriptionService],
   bootstrap: [AppComponent]

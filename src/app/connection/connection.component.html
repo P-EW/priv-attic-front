@@ -1,7 +1,7 @@
  <form novalidate [formGroup]="form" >
     <mat-card [class.mat-elevation-z12]="true" class="card">
       <mat-card-header>
-        <mat-card-title><h1>Connexion</h1></mat-card-title>
+        <mat-card-title><h1>Login</h1></mat-card-title>
         <mat-card-subtitle><h3>Welcome to Priv'Attic !</h3></mat-card-subtitle>
       </mat-card-header>
       <mat-card-content class="center">
@@ -35,11 +35,11 @@
           </mat-form-field>
         </p>
         <mat-error *ngIf="loginFailed">
-          <strong>Username or password is incorrect !</strong>
+          Username or password is incorrect !
         </mat-error>
       </mat-card-content>
       <mat-card-actions class="center">
-        <button type="button" [routerLink]="['']" mat-button>Home</button>
+        <button type="button" [routerLink]="['/home']" mat-button>Home</button>
         <button mat-stroked-button color="primary" type="submit" (click)="submit()">login</button>
       </mat-card-actions>
       <a mat-list-item  [routerLink]="['/inscription']">You do not have an account ? </a>

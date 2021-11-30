@@ -14,3 +14,7 @@ table td, table td * {
 .content {
   word-break: break-all;
 }
+
+.profile {
+  cursor: pointer;
+}

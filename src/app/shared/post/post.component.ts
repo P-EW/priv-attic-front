@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Post, User} from "../types";
 import {UserService} from "../services/user.service";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-post',
@@ -30,7 +31,7 @@ export class PostComponent implements OnInit {
   private _hideComments: boolean;
   private _isFav: boolean;   // TODO A FETCHER PLUS TARD
 
-  constructor(private _userService: UserService) {
+  constructor(private _userService: UserService, private _authService :AuthService) {
     this._hideComments = true;
     this._isFav = false;
     this._post = {} as Post;
@@ -69,5 +70,9 @@ export class PostComponent implements OnInit {
 
   fav(){
     this._isFav = !this._isFav;
+  }
+
+  isLogged(): boolean {
+    return this._authService.isLogged();
   }
 }

@@ -1,4 +1,4 @@
-import {Component, HostListener} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {AuthService} from "./shared/services/auth.service";
 import {Router} from "@angular/router";
 
@@ -7,13 +7,17 @@ import {Router} from "@angular/router";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'priv-attic-front';
 
   private screenWidth: number;
 
   constructor(private _authService : AuthService, private _router: Router) {
     this.screenWidth = window.innerWidth;
+  }
+
+  ngOnInit(): void {
+    if (!this.isLogged()) this._router.navigate(['explore']);
   }
 
   @HostListener('window:resize', ['$event'])
@@ -31,6 +35,6 @@ export class AppComponent {
 
   logout() {
     this._authService.logout();
-    this._router.navigate(['']);
+    this._router.navigate(['explore']);
   }
 }
