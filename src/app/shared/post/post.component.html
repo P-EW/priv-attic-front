@@ -21,7 +21,7 @@
     <button mat-icon-button (click)="swapHideComments()" [color]="hideComments? '': 'primary'">
       <mat-icon>comment</mat-icon>
     </button>
-    <button mat-icon-button disabled>
+    <button mat-icon-button (click)="copyLink()" [matTooltip]="shareMsg" matTooltipPosition="above">
       <mat-icon>share</mat-icon>
     </button>
   </mat-card-actions>

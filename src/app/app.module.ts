@@ -32,6 +32,8 @@ import { InscriptionPersonComponent } from './inscription-person/inscription-per
 import {DeactivatedGuardInscriptionService} from "./shared/guard/deactivated-guard-inscription.service";
 import { ExploreComponent } from './explore/explore.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import {ClipboardModule} from "@angular/cdk/clipboard";
+import {MatTooltipModule} from "@angular/material/tooltip";
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,27 +49,29 @@ import { NotfoundComponent } from './notfound/notfound.component';
     ExploreComponent,
     NotfoundComponent,
   ],
-    imports: [
-        HttpClientModule,
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatListModule,
-        MatIconModule,
-        MatToolbarModule,
-        MatCardModule,
-        MatChipsModule,
-        MatInputModule,
-        MatTabsModule,
-        ReactiveFormsModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatButtonToggleModule,
-        MatAutocompleteModule,
-        RouterModule,
-    ],
+  imports: [
+    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatListModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatChipsModule,
+    MatInputModule,
+    MatTabsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonToggleModule,
+    MatAutocompleteModule,
+    RouterModule,
+    ClipboardModule,
+    MatTooltipModule
+  ],
   providers: [DeactivatedGuardInscriptionService],
   bootstrap: [AppComponent]
 })
