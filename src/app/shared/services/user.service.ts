@@ -3,6 +3,7 @@ import {User} from "../types";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable, map} from "rxjs";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class UserService {
   private readonly _backendURL: any;
   private readonly _defaultImage: string;
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private  _authService : AuthService) {
     this._defaultImage = 'https://t3.ftcdn.net/jpg/00/57/04/58/360_F_57045887_HHJml6DJVxNBMqMeDqVJ0ZQDnotp5rGD.jpg';
 
     this._backendURL = {};
@@ -78,5 +79,9 @@ export class UserService {
     const formData = new FormData();
     formData.append("file", file);
     return this._http.post<User>(this._backendURL.sendUserImage.replace(':pseudo', pseudo), formData);
+  }
+
+  delete(pseudo : string): Observable<any>{
+    return this._http.delete(this._backendURL.oneFromPseudo.replace(':pseudo', pseudo), {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))});
   }
 }

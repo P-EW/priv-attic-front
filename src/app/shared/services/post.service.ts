@@ -91,4 +91,8 @@ export class PostService {
   create(post : Post): Observable<Post> {
     return this._http.post<Post>(this._backendURL.newPost, post);
   }
+
+  deleteAllPost(authorId: string): Observable<any>{
+    return this._http.delete(this._backendURL.deleteUserPosts.replace(':publisherId', authorId));
+  }
 }
