@@ -41,6 +41,11 @@ export class LikeService {
   getNbLikes(postId: string): Observable<any>{
     return this._http.get(this._backendURL.getNbLike.replace(':postId', postId));
   }
+
+  getNbLikesAuthor(pseudo: string): Observable<any>{
+    return this._http.get(this._backendURL.getNbLikeAuthor.replace(':pseudo', pseudo));
+  }
+
   /**
    * Function to return request options
    */

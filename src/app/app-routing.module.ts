@@ -21,8 +21,8 @@ const routes: Routes = [
   { path: 'post/:id', component: ExploreComponent },
   { path: 'login', component: ConnectionComponent },
   { path: 'inscription', component: InscriptionPersonComponent, canDeactivate: [DeactivatedGuardInscriptionService] },
-  { path: '**', component: NotfoundComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', component: NotfoundComponent },
 
 ];
 

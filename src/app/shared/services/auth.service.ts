@@ -3,7 +3,7 @@ import {map, Observable} from "rxjs";
 import {User} from "../types";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {Token} from "../types/token";
+import {Token} from "../types";
 
 @Injectable({
   providedIn: 'root'

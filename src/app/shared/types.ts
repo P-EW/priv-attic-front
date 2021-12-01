@@ -38,3 +38,9 @@ export type Like = {
   authorId: string;
   postId: string;
 }
+
+export type Token = {
+  access_token: string;
+  expiry: string;
+  id: string;
+}

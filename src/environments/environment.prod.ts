@@ -27,7 +27,8 @@ export const environment = {
       newLike : '/likes',
       getLikeByPost : '/likes/from/post/:postId',
       getLikeByPostAndAuthor : '/likes/from/:postId/:authorId',
-      getNbLike : '/likes/nbLike/:postId'
+      getNbLike : '/likes/nbLike/:postId',
+      getNbLikeAuthor : '/likes/from/author/:pseudo'
     }
   }
 };
