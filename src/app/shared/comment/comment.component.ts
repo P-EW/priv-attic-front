@@ -41,7 +41,7 @@ export class CommentComponent implements OnInit {
   }
 
   delete(){
-    this._commentService.delete(this._comment.postId).subscribe(()=> this._comment = {} as Comment);
+    this._commentService.delete(this._comment._id).subscribe(()=> this._comment = {} as Comment);
   }
 
 }
