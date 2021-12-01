@@ -1,15 +1,20 @@
-<table>
-  <tr [routerLink]="['/profile/'+author.pseudo]" class="profile">
-    <td rowspan="2">
-      <img class="avatar" [src]="author.image" alt="Profile picture" *ngIf="author?.image">
-    </td>
-    <td>
-      <strong>{{author.pseudo}} :</strong>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p class="content">{{comment.content}}</p>
-    </td>
-  </tr>
-</table>
+<ng-container *ngIf="comment.content">
+  <div class="delete">
+    <mat-icon (click)="delete()" *ngIf="isAuthor()">delete</mat-icon>
+  </div>
+  <table>
+    <tr class="profile" [routerLink]="['/profile/'+author.pseudo]">
+      <td rowspan="2">
+        <img class="avatar" [src]="author.image" alt="Profile picture" *ngIf="author?.image">
+      </td>
+      <td>
+        <strong>{{author.pseudo}} :</strong>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p class="content">{{comment.content}}</p>
+      </td>
+    </tr>
+  </table>
+</ng-container>

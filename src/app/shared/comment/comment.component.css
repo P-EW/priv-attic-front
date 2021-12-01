@@ -9,6 +9,7 @@ table td, table td * {
   background-size: cover;
   width: 40px;
   height: 40px;
+  max-width: 40px;
 }
 
 .content {
@@ -16,5 +17,13 @@ table td, table td * {
 }
 
 .profile {
+  cursor: pointer;
+}
+
+.delete {
+  text-align: end;
+  position: absolute;
+  right: 0;
+  color: crimson;
   cursor: pointer;
 }

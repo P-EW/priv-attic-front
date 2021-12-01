@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User, Comment} from "../types";
 import {UserService} from "../services/user.service";
+import {AuthService} from "../services/auth.service";
+import {CommentService} from "../services/comment.service";
 
 @Component({
   selector: 'app-comment',
@@ -12,7 +14,7 @@ export class CommentComponent implements OnInit {
   private _comment: Comment;
   private _author: User;
 
-  constructor(private _userService: UserService) {
+  constructor(private _userService: UserService, private _authService :AuthService, private _commentService: CommentService) {
     this._comment = {} as Comment;
     this._author = {} as User;
   }
@@ -32,6 +34,14 @@ export class CommentComponent implements OnInit {
 
   get author(): User{
     return this._author;
+  }
+
+  isAuthor(): boolean{
+    return this._comment.authorId === (this._authService.getToken()?.id || '');
+  }
+
+  delete(){
+    this._commentService.delete(this._comment.postId).subscribe(()=> this._comment = {} as Comment);
   }
 
 }

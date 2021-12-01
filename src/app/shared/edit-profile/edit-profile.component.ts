@@ -113,6 +113,9 @@ export class EditProfileComponent implements OnInit {
   submit(user: User): void {
     user.birthDate = new Date(this._birthdate).getTime();
     user.isPrivate = this._isPrivate;
+    if(!user.password || user.password?.length < 7){
+      delete user.password;
+    }
 
     if(!this._userFile?.name || ['image/gif', 'image/jpeg', 'image/jpg', 'image/png'].includes(this._userFile.type)) {
       this._userService.updateOne(user, this._oldPseudo).subscribe((u: User) => this._upload(u));
