@@ -43,7 +43,7 @@ export class PostService {
   }
 
   fetchUserPosts(user: string): Observable<Post[]> {
-    return this._http.get<Post[]>(this._backendURL.postFromPseudo.replace(':pseudo', user, {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))}))
+    return this._http.get<Post[]>(this._backendURL.postFromPseudo.replace(':pseudo',user),  {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))})
       .pipe(
         filter((posts:Post[]) => !!posts),
         map((posts: Post[]) =>
