@@ -1,0 +1,16 @@
+<mat-card>
+  <div class="search">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Search" (keyup)="type($event)">
+    </mat-form-field>
+    <button mat-icon-button type="button">
+      <mat-icon >search</mat-icon>
+    </button>
+  </div>
+</mat-card>
+<app-post [post]="post" *ngFor="let post of posts | searchFilter: searchText"></app-post>
+<div class="wrapper" *ngIf="posts.length === 0">
+  <h1>😅</h1>
+  <h2>Ooops !</h2>
+  <h3>It seems like there is 0 post available... yet !</h3>
+</div>

@@ -34,6 +34,8 @@ import { ExploreComponent } from './explore/explore.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import {ClipboardModule} from "@angular/cdk/clipboard";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { SearchComponent } from './search/search.component';
+import { SearchPipe } from './search/pipes/search.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +50,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     InscriptionPersonComponent,
     ExploreComponent,
     NotfoundComponent,
+    SearchComponent,
+    SearchPipe,
   ],
   imports: [
     HttpClientModule,

@@ -37,17 +37,13 @@
         <mat-icon class="nav-icon">home</mat-icon>
         <span>Home</span>
       </a>
-      <a href="#" mat-list-item routerLinkActive="active">
+      <a href="#" mat-list-item [routerLink]="['search']" routerLinkActive="active">
         <mat-icon class="nav-icon">search</mat-icon>
         <span>Search</span>
       </a>
       <a href="#" mat-list-item [routerLink]="['explore']" routerLinkActive="active">
         <mat-icon class="nav-icon">explore</mat-icon>
         <span>Explore</span>
-      </a>
-      <a href="#" mat-list-item routerLinkActive="active">
-        <mat-icon class="nav-icon">notifications_none</mat-icon>
-        <span>Notifications</span>
       </a>
     </mat-nav-list>
   </div>
@@ -58,16 +54,13 @@
 
 <!-- affichage bar en bas si mobile -->
 <mat-toolbar class="footer" *ngIf="isMobile()">
-  <button mat-icon-button [routerLink]="['home']">
+  <button mat-icon-button [routerLink]="['home']" routerLinkActive="active">
     <mat-icon>home</mat-icon>
   </button>
-  <button mat-icon-button>
+  <button mat-icon-button [routerLink]="['search']" routerLinkActive="active">
     <mat-icon>search</mat-icon>
   </button>
-  <button mat-icon-button>
+  <button mat-icon-button [routerLink]="['explore']" routerLinkActive="active">
     <mat-icon>explore</mat-icon>
-  </button>
-  <button mat-icon-button>
-    <mat-icon>notifications_none</mat-icon>
   </button>
 </mat-toolbar>
