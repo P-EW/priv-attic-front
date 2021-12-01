@@ -3,13 +3,14 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Like} from "../types";
 import {Observable} from "rxjs";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LikeService {
   private readonly _backendURL : any ;
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private _authService :AuthService) {
     this._backendURL = {};
 
     // build backend base url
@@ -27,15 +28,15 @@ export class LikeService {
    * Function to create a new person
    */
   create(like: Like): Observable<any>{
-    return this._http.post<Like>(this._backendURL.newLike, like, this._options())
+    return this._http.post<Like>(this._backendURL.newLike, like, {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))})
   }
 
   delete(postId: string, authorId: string): Observable<any>{
-    return this._http.delete(this._backendURL.getLikeByPostAndAuthor.replace(':postId',postId).replace(':authorId',authorId));
+    return this._http.delete(this._backendURL.getLikeByPostAndAuthor.replace(':postId',postId).replace(':authorId',authorId), {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))});
   }
 
   deleteAllLikes(authorId: string): Observable<any>{
-    return this._http.delete(this._backendURL.deleteUserLikes.replace(':authorId', authorId));
+    return this._http.delete(this._backendURL.deleteUserLikes.replace(':authorId', authorId) , {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))});
   }
   get(postId : string, authorId: string): Observable<any>{
     return this._http.get(this._backendURL.getLikeByPostAndAuthor.replace(':postId',postId).replace(':authorId',authorId));
@@ -54,13 +55,7 @@ export class LikeService {
   }
 
   deleteLikesFromPost(postId:string): Observable<any> {
-    return this._http.delete<any>(this._backendURL.getLikeByPost.replace(':postId',postId))
+    return this._http.delete<any>(this._backendURL.getLikeByPost.replace(':postId',postId), {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))})
   }
 
-  /**
-   * Function to return request options
-   */
-  private _options(headerList: object = {}): any {
-    return { headers: new HttpHeaders(Object.assign({ 'Content-Type': 'application/json' }, headerList)) };
-  }
 }

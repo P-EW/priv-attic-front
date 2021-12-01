@@ -68,7 +68,7 @@ export class UserService {
   }
 
   updateOne(user : User, oldPseudo:string): Observable<User> {
-    return this._http.patch<User>(this._backendURL.patchUser.replace(':pseudo', oldPseudo), user);
+    return this._http.patch<User>(this._backendURL.patchUser.replace(':pseudo', oldPseudo), user, {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))});
   }
 
   private static  _options(headerList: object = {}): any {
@@ -78,7 +78,7 @@ export class UserService {
   upload(file: File, pseudo:string): Observable<User> {
     const formData = new FormData();
     formData.append("file", file);
-    return this._http.post<User>(this._backendURL.sendUserImage.replace(':pseudo', pseudo), formData);
+    return this._http.post<User>(this._backendURL.sendUserImage.replace(':pseudo', pseudo), formData, {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))});
   }
 
   delete(pseudo : string): Observable<any>{

@@ -89,14 +89,14 @@ export class PostService {
   upload(file: File, postId:string): Observable<Post> {
     const formData = new FormData();
     formData.append("file", file);
-    return this._http.post<Post>(this._backendURL.sendPostImage.replace(':id', postId), formData);
+    return this._http.post<Post>(this._backendURL.sendPostImage.replace(':id', postId), formData, {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))});
   }
 
   create(post : Post): Observable<Post> {
-    return this._http.post<Post>(this._backendURL.newPost, post);
+    return this._http.post<Post>(this._backendURL.newPost, post, {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))});
   }
 
   deleteAllPost(authorId: string): Observable<any>{
-    return this._http.delete(this._backendURL.deleteUserPosts.replace(':publisherId', authorId));
+    return this._http.delete(this._backendURL.deleteUserPosts.replace(':publisherId', authorId, {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))}));
   }
 }
