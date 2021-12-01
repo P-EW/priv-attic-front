@@ -11,6 +11,7 @@ import {DeactivatedGuardInscriptionService} from "./shared/guard/deactivated-gua
 import {ExploreComponent} from "./explore/explore.component";
 import {NotfoundComponent} from "./notfound/notfound.component";
 import {SearchComponent} from "./search/search.component";
+import {CategComponent} from "./categ/categ.component";
 
 const routes: Routes = [
   { path: 'home', component: FeedComponent },
@@ -21,6 +22,8 @@ const routes: Routes = [
   { path: 'edit/profile', component: EditProfileComponent, canActivate :[ AuthGardService] },
   { path: 'post', component: CreatePostComponent, canActivate :[ AuthGardService] },
   { path: 'post/:id', component: ExploreComponent },
+  { path: 'categs', component: CategComponent },
+  { path: 'categs/:categs', component: CategComponent },
   { path: 'login', component: ConnectionComponent },
   { path: 'inscription', component: InscriptionPersonComponent, canDeactivate: [DeactivatedGuardInscriptionService] },
   { path: '', redirectTo: 'home', pathMatch: 'full' },

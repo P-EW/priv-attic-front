@@ -1,0 +1,42 @@
+<mat-card>
+  <div class="search">
+    <mat-form-field appearance="outline">
+      <mat-label>Categories/Tags</mat-label>
+      <mat-chip-list #chipList aria-label="Tag selection">
+        <mat-chip
+          *ngFor="let tag of tags"
+          [removable]="true"
+          (removed)="remove(tag)">
+          {{tag}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+        <input
+          placeholder="New tag..."
+          #tagInput
+          [formControl]="tagCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <ng-container *ngFor="let tag of filteredTags | async">
+          <mat-option [value]="tag" *ngIf="!tags.includes(tag)">
+            {{tag}}
+          </mat-option>
+        </ng-container>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-icon-button type="button">
+      <mat-icon >search</mat-icon>
+    </button>
+  </div>
+</mat-card>
+<app-post [post]="post" *ngFor="let post of posts"></app-post>
+<div class="wrapper" *ngIf="posts.length === 0">
+  <h1>😅</h1>
+  <h2>Ooops !</h2>
+  <h3>It seems like there is 0 post matching... yet !</h3>
+</div>

@@ -36,6 +36,7 @@ import {ClipboardModule} from "@angular/cdk/clipboard";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { SearchComponent } from './search/search.component';
 import { SearchPipe } from './search/pipes/search.pipe';
+import { CategComponent } from './categ/categ.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +53,7 @@ import { SearchPipe } from './search/pipes/search.pipe';
     NotfoundComponent,
     SearchComponent,
     SearchPipe,
+    CategComponent,
   ],
   imports: [
     HttpClientModule,

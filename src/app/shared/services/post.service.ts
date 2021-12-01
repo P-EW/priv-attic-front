@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Post} from "../types";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {defaultIfEmpty, filter, Observable, map} from "rxjs";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class PostService {
   // private property to store all backend URLs
   private readonly _backendURL: any;
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private _authService :AuthService) {
 
     this._backendURL = {};
 
@@ -28,7 +29,8 @@ export class PostService {
   }
 
   fetchFeed(): Observable<Post[]> {
-    return this._http.get<Post[]>(this._backendURL.allPosts)
+    //PostService._options({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}` })
+    return this._http.get<Post[]>(this._backendURL.allPosts, {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))})
       .pipe(
         filter((posts:Post[]) => !!posts),
         map((posts: Post[]) =>
@@ -42,7 +44,21 @@ export class PostService {
   }
 
   fetchUserPosts(user: string): Observable<Post[]> {
-    return this._http.get<Post[]>(this._backendURL.postFromPseudo.replace(':pseudo', user))
+    return this._http.get<Post[]>(this._backendURL.postFromPseudo.replace(':pseudo', user, {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))}))
+      .pipe(
+        filter((posts:Post[]) => !!posts),
+        map((posts: Post[]) =>
+          posts.map((post:Post) => {
+            if(post?.mediaContent) {post.mediaContent = this._backendURL.getFileByName.replace(':filename', post.mediaContent);}
+            return post;
+          }),
+        ),
+        defaultIfEmpty([])
+      )
+  }
+
+  fetchPostsCateg(categ: string[]): Observable<Post[]> {
+    return this._http.get<Post[]>(this._backendURL.postFromCateg.replace(':categs', categ, {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))}))
       .pipe(
         filter((posts:Post[]) => !!posts),
         map((posts: Post[]) =>
@@ -56,7 +72,7 @@ export class PostService {
   }
 
   fetchOne(postId: string): Observable<Post> {
-    return this._http.get<Post>(this._backendURL.onePost.replace(':id', postId))
+    return this._http.get<Post>(this._backendURL.onePost.replace(':id', postId, {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))}))
       .pipe(
         filter((post:Post) => !!post),
         map((post:Post) => {

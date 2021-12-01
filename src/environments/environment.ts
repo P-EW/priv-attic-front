@@ -15,6 +15,7 @@ export const environment = {
       allPosts: '/posts',
       postFromPseudo: '/posts/from/:pseudo',
       onePost: '/posts/:id',
+      postFromCateg: '/posts/cats/:categs',
 
       newUser: '/users/register',
       patchUser: '/users/:pseudo',

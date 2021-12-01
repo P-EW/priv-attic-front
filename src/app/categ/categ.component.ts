@@ -1,35 +1,33 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Post} from "../shared/types";
+import {PostService} from "../shared/services/post.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
-import {Observable, startWith, map} from "rxjs";
-import {PostService} from "../shared/services/post.service";
-import {Router} from "@angular/router";
+import {filter, map, Observable, startWith, tap} from "rxjs";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
-import {Post} from "../shared/types";
-import {AuthService} from "../shared/services/auth.service";
+import {ActivatedRoute} from "@angular/router";
+import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-create-post',
-  templateUrl: './create-post.component.html',
-  styleUrls: ['./create-post.component.css']
+  selector: 'app-categ',
+  templateUrl: './categ.component.html',
+  styleUrls: ['./categ.component.css']
 })
-export class CreatePostComponent implements OnInit {
+export class CategComponent implements OnInit {
 
+  private _posts: Post[];
   private _tags: string[];
   private _tagCtrl: FormControl;
   private readonly _form: FormGroup;
-  private _userFile : File;
-
-  private _isValid: boolean;
-  private _invalidMsg: string;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   defaultTagList: string[] = ["Photography", "WildLife", "Dog", "Cat", "Meme"];
   filteredTags: Observable<string[]>;
   @ViewChild('tagInput') private _tagInput: ElementRef<HTMLInputElement>;
 
-  constructor(private _postService: PostService, private _router: Router, private _authService :AuthService) {
+  constructor(private _postService: PostService, private _route: ActivatedRoute, private _location: Location) {
+    this._posts = [];
     this._tags = [];
     this._tagCtrl = new FormControl();
     this._tagInput = {} as ElementRef;
@@ -37,13 +35,20 @@ export class CreatePostComponent implements OnInit {
       startWith(null),
       map((tag: string | null) => (tag ? this._filter(tag) : this.defaultTagList.slice())),
     );
-    this._form = CreatePostComponent._buildForm();
-    this._userFile = {} as File;
-    this._isValid = true;
-    this._invalidMsg = ''
+    this._form = CategComponent._buildForm();
   }
 
   ngOnInit(): void {
+    this._route.params.pipe(
+      filter((params: any) => !!params.categs),
+      tap((params:any)=> this._tags = params.categs.split(','))
+    ).subscribe(
+      (params: any) => this._postService.fetchPostsCateg(params.categs).subscribe((post:Post[]) => this._posts = post)
+    )
+  }
+
+  get posts(): Post[]{
+    return this._posts;
   }
 
   get tags(): string[] {
@@ -54,12 +59,22 @@ export class CreatePostComponent implements OnInit {
     return this._tagCtrl;
   }
 
+  private _refresh() {
+    this._location.replaceState('/categs/'+this._tags.join(','))
+    if(this._tags.length) {
+      this._postService.fetchPostsCateg(this._tags).subscribe((post:Post[]) => this._posts = post)
+    }
+    else {
+      this._posts = [];
+    }
+  }
+
   remove(tag: string): void {
     const index = this._tags.indexOf(tag);
-
     if (index >= 0) {
       this._tags.splice(index, 1);
     }
+    this._refresh();
   }
 
   add(event: MatChipInputEvent): void {
@@ -67,7 +82,7 @@ export class CreatePostComponent implements OnInit {
 
     if (value && !this._tags.includes(value)) {
       this._tags.push(value);
-
+      this._refresh();
     }
     // Clear the input value
     event.chipInput!.clear();
@@ -100,55 +115,4 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
-  onFileSelected($event: any){
-    const file:File = $event.files[0];
-    if (file) {
-      this._userFile = file;
-    }
-  }
-
-  private _upload(post:Post){
-    if (this._userFile?.name) {
-      this._postService.upload(this._userFile, post._id).subscribe(() => this._router.navigate( ['profile']));
-    }
-    else {
-      this._router.navigate( ['profile'])
-    }
-  }
-
-  filename(): string {
-    return this._userFile.name;
-  }
-
-  submit(post: Post): void {
-    post.textContent = post.textContent?.trim();
-    post.categories = this._tags;
-    post.publisherId = this._authService.getToken()?.id || '';
-
-    if((post?.textContent) || (this._userFile?.name?.length > 0 )){
-      if(post.textContent?.length === 0){
-        delete post.textContent;
-      }
-
-      if(!this._userFile?.name || ['image/gif', 'image/jpeg', 'image/jpg', 'image/png'].includes(this._userFile.type)){
-        this._postService.create(post).subscribe((p:Post) => this._upload(p));
-      }
-      else{
-        this._isValid = false;
-        this._invalidMsg ='Please select a correct format file ! (jpg, jpeg, gif, png)';
-      }
-    }
-    else {
-      this._isValid = false;
-      this._invalidMsg ='Please write something or choose a file !';
-      }
-  }
-
-  get isValid(): boolean{
-    return this._isValid;
-  }
-
-  get invalidMsg(): string{
-    return this._invalidMsg;
-  }
 }
