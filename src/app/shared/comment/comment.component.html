@@ -1,6 +1,6 @@
 <ng-container *ngIf="comment.content">
   <div class="delete">
-    <mat-icon (click)="delete()" *ngIf="isAuthor()">delete</mat-icon>
+    <mat-icon (click)="delete()" *ngIf="isAuthor()" color="primary">delete</mat-icon>
   </div>
   <table>
     <tr class="profile" [routerLink]="['/profile/'+author.pseudo]">

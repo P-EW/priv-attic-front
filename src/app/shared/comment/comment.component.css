@@ -24,6 +24,5 @@ table td, table td * {
   text-align: end;
   position: absolute;
   right: 0;
-  color: crimson;
   cursor: pointer;
 }
