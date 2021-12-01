@@ -40,7 +40,7 @@
       <span>Likes</span>
     </ng-template>
     <app-post [post]="post" *ngFor="let post of likedPosts"></app-post>
-    <h2 *ngIf="!posts.length">There's nothing to display... yet!</h2>
+    <h2 *ngIf="!likedPosts.length">There's nothing to display... yet!</h2>
   </mat-tab>
 
   <mat-tab>
