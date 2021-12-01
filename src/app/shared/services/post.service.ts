@@ -29,7 +29,6 @@ export class PostService {
   }
 
   fetchFeed(): Observable<Post[]> {
-    //PostService._options({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}` })
     return this._http.get<Post[]>(this._backendURL.allPosts, {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))})
       .pipe(
         filter((posts:Post[]) => !!posts),
