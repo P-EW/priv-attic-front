@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Like, Post, User} from "../shared/types";
+import {Like, Post, User, Comment} from "../shared/types";
 import {UserService} from "../shared/services/user.service";
 import {PostService} from "../shared/services/post.service";
 import {CommentService} from "../shared/services/comment.service";
@@ -18,12 +18,14 @@ export class ProfileComponent implements OnInit {
   private _user: User;
   private _posts: Post[];
   private _likedPosts: Post[];
+  private _commentPosts: Comment[];
   private _nblikes: number;
 
   constructor(private _userService: UserService, private _postService: PostService, private _commentService: CommentService, private _route: ActivatedRoute, private _router: Router, private _authService :AuthService, private _likeService : LikeService) {
     this._user = {} as User;
     this._posts = [];
     this._likedPosts = [];
+    this._commentPosts = [];
     this._nblikes = 0;
   }
 
@@ -48,7 +50,8 @@ export class ProfileComponent implements OnInit {
           this._likeService.getNbLikesAuthor(user?.pseudo || '').subscribe((likes:Like[])=> this._nblikes = likes.length);
           this._likeService.getLikedPostId(user.id).subscribe(
             (likes:Like[]) => likes.map((like:Like) => this._postService.fetchOne(like.postId).subscribe((post:Post) => this._likedPosts.push(post)),
-          ))
+          ));
+          this._commentService.fetchFromAuthor(user.id).subscribe((comments:Comment[]) => this._commentPosts = comments);
         },
         error: () => {
           // manage error when user doesn't exist in DB
@@ -67,6 +70,10 @@ export class ProfileComponent implements OnInit {
 
   get likedPosts(): Post[]{
     return this._likedPosts;
+  }
+
+  get commentPosts(): Comment[]{
+    return this._commentPosts;
   }
 
   get nbLikes(): number{

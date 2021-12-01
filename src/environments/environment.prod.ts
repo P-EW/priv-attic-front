@@ -20,6 +20,7 @@ export const environment = {
 
       newComment: '/comments',
       commentsFromPost: '/comments/from/:id',
+      commentsFromAuthor: '/comments/author/:authorId',
 
       getFileByName: '/media/:filename',
       sendUserImage: '/media/user/:pseudo',

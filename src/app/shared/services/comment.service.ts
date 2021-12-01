@@ -51,6 +51,14 @@ export class CommentService {
       )
   }
 
+  fetchFromAuthor(authorId: string): Observable<Comment[]> {
+    return this._http.get<Comment[]>(this._backendURL.commentsFromAuthor.replace(':authorId', authorId))
+      .pipe(
+        filter((comments:Comment[]) => !!comments),
+        defaultIfEmpty([])
+      )
+  }
+
   create(comment : Comment): Observable<any> {
     return this._http.post<any>(this._backendURL.newComment, comment, CommentService._options({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}` }));
   }

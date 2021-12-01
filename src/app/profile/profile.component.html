@@ -48,7 +48,9 @@
       <mat-icon class="tab-icon">comment</mat-icon>
       <span>Comments</span>
     </ng-template>
-
-    Content 3
+    <mat-card class="comment">
+    <app-comment [comment]="comment" *ngFor="let comment of commentPosts"></app-comment>
+    </mat-card>
+    <h2 *ngIf="!commentPosts.length">There's nothing to display... yet!</h2>
   </mat-tab>
 </mat-tab-group>
