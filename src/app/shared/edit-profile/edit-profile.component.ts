@@ -12,9 +12,6 @@ import {Router} from "@angular/router";
 })
 export class EditProfileComponent implements OnInit {
 
-  // TODO gerer le motto
-  // TODO faire une verification de formulaire pour motto ?
-
   private _hidePassword: boolean;
 
   private _model: User;
@@ -93,6 +90,7 @@ export class EditProfileComponent implements OnInit {
       phone: new FormControl('', Validators.compose([
         Validators.required, Validators.pattern('(0|\\+33)\\d{9}')
       ])),
+      motto: new FormControl(),
     });
   }
 

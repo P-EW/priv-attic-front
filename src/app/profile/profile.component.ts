@@ -74,7 +74,7 @@ export class ProfileComponent implements OnInit {
   }
 
   motto(): string{
-    return this._user.motto?.map(motto => motto.title).join(',') || ''; //TODO, voir plus tard ce qu'on en fait...
+    return this._user.motto || '';
   }
 
   isLogged(): boolean {

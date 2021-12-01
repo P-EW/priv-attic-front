@@ -57,6 +57,14 @@
       <tr>
         <th colspan="2">
           <mat-form-field>
+            <mat-label>Motto</mat-label>
+            <input matInput formControlName="motto" name="motto" />
+          </mat-form-field>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <mat-form-field>
             <mat-label>Phone</mat-label>
             <input matInput formControlName="phone" required name="phone" />
             <mat-error *ngIf="form.get('phone')?.dirty && form.get('phone')?.hasError('required')">
