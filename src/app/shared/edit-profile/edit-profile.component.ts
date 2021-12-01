@@ -4,6 +4,9 @@ import {UserService} from "../services/user.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
+import {LikeService} from "../services/like.service";
+import {CommentService} from "../services/comment.service";
+import {PostService} from "../services/post.service";
 
 @Component({
   selector: 'app-edit-profile',
@@ -22,7 +25,7 @@ export class EditProfileComponent implements OnInit {
   private _oldPseudo: string;
   private _isValid: boolean;
 
-  constructor(private _userService: UserService, private _authService :AuthService, private _router: Router) {
+  constructor(private _userService: UserService, private _likeService : LikeService,private _postService : PostService,private _authService :AuthService, private _commentService : CommentService,  private _router: Router) {
     this._hidePassword = true;
     this._model = {} as User;
     this._form = EditProfileComponent._buildForm();
@@ -113,6 +116,7 @@ export class EditProfileComponent implements OnInit {
   submit(user: User): void {
     user.birthDate = new Date(this._birthdate).getTime();
     user.isPrivate = this._isPrivate;
+    user.phone = this.convert0to33(user.phone);
     if(!user.password || user.password?.length < 7){
       delete user.password;
     }
@@ -125,7 +129,24 @@ export class EditProfileComponent implements OnInit {
     }
   }
 
+  delete(): void {
+
+    this._likeService.deleteAllLikes(this._model.id).subscribe();
+    this._commentService.deleteAllComments(this._model.id).subscribe();
+    this._postService.deleteAllPost(this._model.id).subscribe();
+    this._userService.delete(this._model.pseudo).subscribe();
+    this._router.navigate(['login'])
+    this._authService.logout();
+  }
+
   get isValid(): boolean{
     return this._isValid;
+  }
+  convert0to33(phone : string): string{
+    if(phone.charAt(0) == '0'){
+      return phone.split('0').join('+33');
+    }else{
+      return phone;
+    }
   }
 }

@@ -16,6 +16,7 @@ export const environment = {
       postFromPseudo: '/posts/from/:pseudo',
       onePost: '/posts/:id',
       postFromCateg: '/posts/cats/:categs',
+      deleteUserPosts : '/posts/from/:publisherId',
 
       newUser: '/users/register',
       patchUser: '/users/:pseudo',
@@ -25,6 +26,7 @@ export const environment = {
       newComment: '/comments',
       commentsFromPost: '/comments/from/:id',
       commentsFromAuthor: '/comments/author/:authorId',
+      deleteUserComments:'/comments/from/author/:authorId',
       deletecomment: '/comments/from/id/:postId',
 
       getFileByName: '/media/:filename',
@@ -36,7 +38,8 @@ export const environment = {
       getLikeByPostAndAuthor : '/likes/from/:postId/:authorId',
       getNbLike : '/likes/nbLike/:postId',
       getNbLikeAuthor : '/likes/from/author/:pseudo',
-      getUserLiked: '/likes/liked/:authorId'
+      getUserLiked: '/likes/liked/:authorId',
+      deleteUserLikes: '/likes/from/author/:authorId'
 
     }
   }

@@ -125,4 +125,13 @@
       <button mat-button [disabled]="form.invalid" (click)="submit(form.value)">Submit</button>
     </mat-card-actions>
   </form>
+  <table>
+    <tr>
+      <th>
+        <mat-card-actions align="end">
+          <button mat-flat-button color="warn" (click) = "delete()">Delete Account</button>
+        </mat-card-actions>
+      </th>
+    </tr>
+  </table>
 </mat-card>

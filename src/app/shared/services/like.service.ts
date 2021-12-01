@@ -34,6 +34,9 @@ export class LikeService {
     return this._http.delete(this._backendURL.getLikeByPostAndAuthor.replace(':postId',postId).replace(':authorId',authorId));
   }
 
+  deleteAllLikes(authorId: string): Observable<any>{
+    return this._http.delete(this._backendURL.deleteUserLikes.replace(':authorId', authorId));
+  }
   get(postId : string, authorId: string): Observable<any>{
     return this._http.get(this._backendURL.getLikeByPostAndAuthor.replace(':postId',postId).replace(':authorId',authorId));
   }

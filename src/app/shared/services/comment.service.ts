@@ -63,6 +63,11 @@ export class CommentService {
     return this._http.post<any>(this._backendURL.newComment, comment, CommentService._options({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}` }));
   }
 
+  deleteAllComments(authorId : string) : Observable<any>{
+    return this._http.delete(this._backendURL.deleteUserComments.replace(':authorId', authorId));
+  }
+
+
   delete(postId: string): Observable<any> {
     return this._http.delete<any>(this._backendURL.deletecomment.replace(':postId', postId));
   }
