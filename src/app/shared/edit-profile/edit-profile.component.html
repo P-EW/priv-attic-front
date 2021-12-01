@@ -103,14 +103,11 @@
       <tr>
         <th colspan="2">
           <mat-form-field>
-            <mat-label>Enter your password</mat-label>
-            <input matInput [type]="hidePassword ? 'password' : 'text'" required formControlName="password" name="password">
+            <mat-label>Enter your NEW password (optionnal)</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" name="password">
             <button mat-icon-button matSuffix (click)="swapHidePassword()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword" type="button">
               <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
-            <mat-error *ngIf="form.get('password')?.dirty && form.get('password')?.hasError('required')">
-              Password is <strong>required</strong>
-            </mat-error>
           </mat-form-field>
         </th>
       </tr>
