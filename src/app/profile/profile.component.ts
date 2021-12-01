@@ -17,11 +17,13 @@ export class ProfileComponent implements OnInit {
 
   private _user: User;
   private _posts: Post[];
+  private _likedPosts: Post[];
   private _nblikes: number;
 
   constructor(private _userService: UserService, private _postService: PostService, private _commentService: CommentService, private _route: ActivatedRoute, private _router: Router, private _authService :AuthService, private _likeService : LikeService) {
     this._user = {} as User;
     this._posts = [];
+    this._likedPosts = [];
     this._nblikes = 0;
   }
 
@@ -42,8 +44,11 @@ export class ProfileComponent implements OnInit {
       .subscribe({
         next: (user: User) => {
           this._user = user;
-          this._postService.fetchUserPosts(this._user.pseudo).subscribe((posts: Post[])=> this._posts = posts.sort((a:Post, b:Post) => +b.date - +a.date));
+          this._postService.fetchUserPosts(user?.pseudo).subscribe((posts: Post[])=> this._posts = posts.sort((a:Post, b:Post) => +b.date - +a.date));
           this._likeService.getNbLikesAuthor(user?.pseudo || '').subscribe((likes:Like[])=> this._nblikes = likes.length);
+          this._likeService.getLikedPostId(user.id).subscribe(
+            (likes:Like[]) => likes.map((like:Like) => this._postService.fetchOne(like.postId).subscribe((post:Post) => this._likedPosts.push(post)),
+          ))
         },
         error: () => {
           // manage error when user doesn't exist in DB
@@ -56,11 +61,15 @@ export class ProfileComponent implements OnInit {
     return this._user;
   }
 
-  get posts(){
+  get posts(): Post[]{
     return this._posts;
   }
 
-  get nbLikes(){
+  get likedPosts(): Post[]{
+    return this._likedPosts;
+  }
+
+  get nbLikes(): number{
     return this._nblikes;
   }
 

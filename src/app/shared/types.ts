@@ -8,6 +8,7 @@ export type Post = {
 };
 
 export type User = {
+  id: string;
   image: string;
   pseudo: string;
   firstname: string;

@@ -32,7 +32,8 @@ export const environment = {
       getLikeByPost : '/likes/from/post/:postId',
       getLikeByPostAndAuthor : '/likes/from/:postId/:authorId',
       getNbLike : '/likes/nbLike/:postId',
-      getNbLikeAuthor : '/likes/from/author/:pseudo'
+      getNbLikeAuthor : '/likes/from/author/:pseudo',
+      getUserLiked: '/likes/liked/:authorId'
 
     }
   }

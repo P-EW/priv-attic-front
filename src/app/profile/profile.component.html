@@ -38,7 +38,8 @@
       <mat-icon class="tab-icon">favorite</mat-icon>
       <span>Likes</span>
     </ng-template>
-    Content 2
+    <app-post [post]="post" *ngFor="let post of likedPosts"></app-post>
+    <h2 *ngIf="!posts.length">There's nothing to display... yet!</h2>
   </mat-tab>
 
   <mat-tab>

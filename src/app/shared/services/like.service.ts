@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Like} from "../types";
-import {map, Observable} from "rxjs";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +44,10 @@ export class LikeService {
 
   getNbLikesAuthor(pseudo: string): Observable<any>{
     return this._http.get(this._backendURL.getNbLikeAuthor.replace(':pseudo', pseudo));
+  }
+
+  getLikedPostId(authorId: string): Observable<Like[]> {
+    return this._http.get<Like[]>(this._backendURL.getUserLiked.replace(':authorId', authorId));
   }
 
   /**
