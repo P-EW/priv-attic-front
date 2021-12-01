@@ -80,4 +80,8 @@ export class ProfileComponent implements OnInit {
   isLogged(): boolean {
     return this._authService.isLogged();
   }
+
+  isPrivate(): boolean {
+    return this._user.isPrivate;
+  }
 }
