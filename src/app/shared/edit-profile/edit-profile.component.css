@@ -33,6 +33,10 @@ table {
   top: 45%;
 }
 
-.delete{
-  text-align: left;
+.actions {
+  margin: auto;
+}
+
+.submit {
+  float: right;
 }
