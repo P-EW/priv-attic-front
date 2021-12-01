@@ -1,8 +1,9 @@
-<mat-card class="card">
+<mat-card class="card" *ngIf="post?._id">
   <mat-card-header>
     <div mat-card-avatar [routerLink]="['/profile/'+publisher?.pseudo]" class="header-image" [ngStyle]="{ 'background-image': 'url('+publisher.image+')'}" *ngIf="publisher?.image" ></div>
     <mat-card-title [routerLink]="['/profile/'+publisher?.pseudo]">{{publisher?.pseudo}}</mat-card-title>
     <small class="timestamp">{{post?.date | date:"dd/MM/yy, HH:mm"}}</small>
+    <mat-icon *ngIf="isPublisher()" color="primary" (click)="delete()" class="delete">delete</mat-icon>
     <mat-card-subtitle>
       <mat-chip-list *ngIf="post?.categories">
         <mat-chip *ngFor="let categorie of post?.categories" [routerLink]="['/categs/'+categorie]">{{categorie}}</mat-chip>

@@ -69,7 +69,7 @@ export class CommentService {
 
 
   delete(postId: string): Observable<any> {
-    return this._http.delete<any>(this._backendURL.deletecomment.replace(':postId', postId));
+    return this._http.delete<any>(this._backendURL.deletecomment.replace(':postId', postId), {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))});
   }
 
   private static  _options(headerList: object = {}): any {

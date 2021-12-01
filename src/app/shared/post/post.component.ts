@@ -5,6 +5,8 @@ import {animate, style, transition, trigger} from "@angular/animations";
 import {AuthService} from "../services/auth.service";
 import {LikeService} from "../services/like.service";
 import { Clipboard } from '@angular/cdk/clipboard';
+import {PostService} from "../services/post.service";
+import {CommentService} from "../services/comment.service";
 
 @Component({
   selector: 'app-post',
@@ -35,7 +37,7 @@ export class PostComponent implements OnInit {
   private _nbLike : number;
   private _shareMsg :string;
 
-  constructor(private _userService: UserService, private _authService :AuthService, private _likeService : LikeService, private _clipboard: Clipboard) {
+  constructor(private _userService: UserService, private _authService :AuthService, private _likeService : LikeService, private _clipboard: Clipboard, private _postService: PostService, private _commentService: CommentService) {
     this._hideComments = true;
     this._isFav = false;
     this._post = {} as Post;
@@ -116,6 +118,16 @@ export class PostComponent implements OnInit {
 
   get shareMsg(){
     return this._shareMsg;
+  }
+
+  isPublisher(): boolean {
+    return this._post.publisherId === (this._authService.getToken()?.id || '');
+  }
+
+  delete() {
+    this._commentService.delete(this._post._id).subscribe();
+    this._likeService.deleteLikesFromPost(this._post._id).subscribe();
+    this._postService.deleteOne(this._post._id).subscribe(()=> this._post = {} as Post);
   }
 
 }

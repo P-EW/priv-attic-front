@@ -53,6 +53,10 @@ export class LikeService {
     return this._http.get<Like[]>(this._backendURL.getUserLiked.replace(':authorId', authorId));
   }
 
+  deleteLikesFromPost(postId:string): Observable<any> {
+    return this._http.delete<any>(this._backendURL.getLikeByPost.replace(':postId',postId))
+  }
+
   /**
    * Function to return request options
    */

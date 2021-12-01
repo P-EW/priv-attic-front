@@ -82,6 +82,10 @@ export class PostService {
       )
   }
 
+  deleteOne(postId:string) {
+    return this._http.delete<any>(this._backendURL.onePost.replace(':id',postId), {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))})
+  }
+
   upload(file: File, postId:string): Observable<Post> {
     const formData = new FormData();
     formData.append("file", file);
