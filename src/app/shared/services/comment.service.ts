@@ -37,12 +37,16 @@ export class CommentService {
   }
 
   /**
-   * Returns private property _defaultPost
+   * Returns private property _defaultComment
    */
   get defaultComment(): Comment {
     return this._defaultComment;
   }
 
+  /**
+   * Fetch all comments of a post
+   * @param postId
+   */
   fetchFromPost(postId: string): Observable<Comment[]> {
     return this._http.get<Comment[]>(this._backendURL.commentsFromPost.replace(':id', postId))
       .pipe(
@@ -51,6 +55,10 @@ export class CommentService {
       )
   }
 
+  /**
+   * Fetch all comments of a user
+   * @param authorId
+   */
   fetchFromAuthor(authorId: string): Observable<Comment[]> {
     return this._http.get<Comment[]>(this._backendURL.commentsFromAuthor.replace(':authorId', authorId))
       .pipe(
@@ -59,15 +67,26 @@ export class CommentService {
       )
   }
 
+  /**
+   * Create a comment
+   * @param comment
+   */
   create(comment : Comment): Observable<any> {
     return this._http.post<any>(this._backendURL.newComment, comment, CommentService._options({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}` }));
   }
 
+  /**
+   * Delete all comments a user published
+   * @param authorId
+   */
   deleteAllComments(authorId : string) : Observable<any>{
     return this._http.delete(this._backendURL.deleteUserComments.replace(':authorId', authorId, CommentService._options({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}` })));
   }
 
-
+  /**
+   * Delete a comment of a post
+   * @param postId
+   */
   delete(postId: string): Observable<any> {
     return this._http.delete<any>(this._backendURL.deletecomment.replace(':postId', postId), {headers: new HttpHeaders(Object.assign({ 'Authorization': `Bearer ${this._authService.getToken()?.access_token}`}))});
   }

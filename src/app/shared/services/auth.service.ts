@@ -27,12 +27,20 @@ export class AuthService {
     Object.keys(environment.backend.endpoints).forEach(k => this._backendURL[ k ] = `${baseUrl}${environment.backend.endpoints[ k ]}`);
   }
 
+  /**
+   * Return the JWT token of a user when he connects
+   * @param user
+   */
   connect(user : User): Observable<any>{
     return this._http.post<Token>(this._backendURL.connection, user).pipe(
       map(t => this.set(t)),
     )
   }
 
+  /**
+   * Set the JWT in the localstorage
+   * @param token
+   */
   set(token : Token) {
     const n = new Date();
     localStorage.setItem('userToken',
@@ -44,6 +52,9 @@ export class AuthService {
     );
   }
 
+  /**
+   * Returns the user's token
+   */
   getToken() :Token | null{
     let token =localStorage.getItem('userToken');
     if(token){
@@ -54,6 +65,9 @@ export class AuthService {
     }
   }
 
+  /**
+   * Returns true if thr user is logged and the token is still valid
+   */
   isLogged():boolean{
     let tokenString = localStorage.getItem('userToken');
     if(tokenString){
@@ -65,6 +79,9 @@ export class AuthService {
     return localStorage.getItem('userToken') != null;
   }
 
+  /**
+   * Destroy the token in localstorage
+   */
   logout():void{
     localStorage.removeItem('userToken');
   }
